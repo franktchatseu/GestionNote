@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Matiere implements Serializable {
 	@Id @GeneratedValue
-	private long id_matiere;
+	private long idMatiere;
 	private String libelle;
 	private int coef;
 	
@@ -22,11 +22,11 @@ public class Matiere implements Serializable {
 	private List<Evaluation> le;
 	
 	@ManyToOne
-	@JoinColumn(name="id_classe")
+	@JoinColumn(name="nomClasse")
 	private Classe classe;
 	
 	@ManyToOne
-	@JoinColumn(name="id_enseignant")
+	@JoinColumn(name="idEnseignant")
 	private Enseignant enseignant;
 	
 	
@@ -42,10 +42,17 @@ public class Matiere implements Serializable {
 	public void setCoef(int coef) {
 		this.coef = coef;
 	}
-	public Matiere(String libelle, int coef) {
+	public Matiere(String libelle, int coef,Classe classe,Enseignant enseignant) {
 		super();
 		this.libelle = libelle;
 		this.coef = coef;
+		this.enseignant=enseignant;
+		this.classe=classe;
 	}
+	public Matiere() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }

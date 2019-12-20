@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+<title>Gestion des notes eleves</title>
+</head>
+<body>
+		<p>Choix de la classe</p>
+		<div>
+			<form th:action="@{notes}" method="get">
+				<label for="classe">Selectionner la Classe</label>
+				<select name="classe" id="classe">
+					<option>6e</option>
+					<option>5e</option>
+					<option>4e</option>
+					<option>3e</option>
+					<option>2nd</option>
+					<option>1e</option>
+					<option>Tle</option>
+				</select>
+				<label for="matiere">Selectionner la Matiere</label>
+				<select name="matiere" id="matiere" >
+					<option >francais</option>
+					<option >maths</option>
+					
+				</select>
+				<button class="btn-primary">Afficher</button>
+			</form>
+		</div>
+		
+		<div class="container">
+	<table class="table">
+	<caption>TABLEAU DES ELEVES</caption>
+  <tr>
+    <th>ID</th>
+    <th>NOM</th>
+    <th>NOTE</th>
+  </tr>
+  <tr th:each="el:${liste_eleve}">
+    <td th:text="${el.matricule}"></td>
+    <td th:text="${el.nom}"></td>
+    <td><form th:action="@{ajouter_note(eleve=${el.matricule},classe=${nomclasse},matiere=${libelle})}" method="post" th:objet="${el}">
+    		<input type="number" th:value="${note}"name="note"/>
+    	</form></td>
+    </tr>
+</table>
+</div>	
+</body>
+</html>

@@ -52,6 +52,7 @@
     <th>TELTUTEUR</th>
     <th>SEXE</th>
     <th>DATE NAISSANCE</th>
+    <th>Classe</th>
     <th></th>
     
   </tr>
@@ -63,6 +64,7 @@
     <td th:text="${el.tel_tuteur}"></td>
     <td th:text="${el.sexe}"></td>
     <td th:text="${el.date_naissance}"></td>
+    <td th:text="${el.classe.nomClasse}"></td>
     <td><a th:href="@{delete(id=${el.matricule},motcle=${motcle},page=${pageCourante})}">Supprimer</a></td>
     
     

@@ -11,9 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 @Entity
 public class Classe implements Serializable {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id_classe;
-	private String nom_classe;
+	@Id
+	private String nomClasse;
 	private int nbre_eleve;
 	private String prof_titulaire;
 	
@@ -23,9 +22,9 @@ public class Classe implements Serializable {
 	@OneToMany(mappedBy="classe", fetch=FetchType.LAZY)
 	private List<Matiere> liste_matiere;
 	
-	public Classe(String nom_classe, int nbre_eleve, String prof_titulaire) {
+	public Classe(String nomClasse, int nbre_eleve, String prof_titulaire) {
 		super();
-		this.nom_classe = nom_classe;
+		this.nomClasse = nomClasse;
 		this.nbre_eleve = nbre_eleve;
 		this.prof_titulaire = prof_titulaire;
 	}
@@ -33,10 +32,10 @@ public class Classe implements Serializable {
 		super();
 	}
 	public String getNom_classe() {
-		return nom_classe;
+		return nomClasse;
 	}
 	public void setNom_classe(String nom_classe) {
-		this.nom_classe = nom_classe;
+		this.nomClasse = nom_classe;
 	}
 	public int getNbre_eleve() {
 		return nbre_eleve;
@@ -50,14 +49,31 @@ public class Classe implements Serializable {
 	public void setProf_titulaire(String prof_titulaire) {
 		this.prof_titulaire = prof_titulaire;
 	}
-	public long getId_classe() {
-		return id_classe;
+	public Classe(String nom_classe) {
+		super();
+		this.nomClasse = nom_classe;
 	}
-	public void setId_classe(long id_classe) {
-		this.id_classe = id_classe;
+	public String getNomClasse() {
+		return nomClasse;
+	}
+	public void setNomClasse(String nomClasse) {
+		this.nomClasse = nomClasse;
+	}
+	public List<Eleve> getListe_eleve() {
+		return liste_eleve;
+	}
+	public void setListe_eleve(List<Eleve> liste_eleve) {
+		this.liste_eleve = liste_eleve;
+	}
+	public List<Matiere> getListe_matiere() {
+		return liste_matiere;
+	}
+	public void setListe_matiere(List<Matiere> liste_matiere) {
+		this.liste_matiere = liste_matiere;
 	}
 	
 	
 	//constructeur
+	
 	
 }

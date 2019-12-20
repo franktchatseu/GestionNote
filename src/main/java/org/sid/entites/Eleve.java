@@ -25,7 +25,7 @@ public class Eleve implements Serializable {
 	private String nom;
 	private String prenom;
 	private String date_naissance;
-	@NotEmpty
+	
 	private char sexe;
 	@NotEmpty
 	private String nom_tuteur;
@@ -35,7 +35,7 @@ public class Eleve implements Serializable {
 	private String mail_tuteur;
 	
 	@ManyToOne
-	@JoinColumn(name="id_classe")
+	@JoinColumn(name="nomClasse")
 	private Classe classe;
 	
 	@OneToMany(mappedBy="eleve", fetch=FetchType.LAZY)
@@ -48,8 +48,20 @@ public class Eleve implements Serializable {
 	public long getMatricule() {
 		return matricule;
 	}
+	public Classe getClasse() {
+		return classe;
+	}
+	public void setClasse(Classe classe) {
+		this.classe = classe;
+	}
+	public List<Evaluation> getListe_evaluation() {
+		return liste_evaluation;
+	}
+	public void setListe_evaluation(List<Evaluation> liste_evaluation) {
+		this.liste_evaluation = liste_evaluation;
+	}
 	public Eleve(String nom, String prenom, String date_naissance, char sexe, String nom_tuteur,
-			String tel_tuteur, String mail_tuteur) {
+			String tel_tuteur, String mail_tuteur,Classe classe) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -58,6 +70,8 @@ public class Eleve implements Serializable {
 		this.nom_tuteur = nom_tuteur;
 		this.tel_tuteur = tel_tuteur;
 		this.mail_tuteur = mail_tuteur;
+		this.classe=classe;
+		
 	}
 	
 	public Eleve() {

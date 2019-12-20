@@ -16,11 +16,11 @@ public class Evaluation implements Serializable{
 	private int note;
 
 	@ManyToOne
-	@JoinColumn(name="id_eleve")
+	@JoinColumn(name="matricule")
 	private Eleve eleve;
 	
 	@ManyToOne
-	@JoinColumn(name="id_matiere")
+	@JoinColumn(name="idMatiere")
 	private Matiere matiere;
 	
 	public int getNote() {
@@ -31,9 +31,11 @@ public class Evaluation implements Serializable{
 		this.note = note;
 	}
 
-	public Evaluation(int note) {
+	public Evaluation(int note,Eleve eleve,Matiere matiere) {
 		super();
 		this.note = note;
+		this.eleve=eleve;
+		this.matiere=matiere;
 	}
 	
 	

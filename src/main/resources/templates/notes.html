@@ -7,46 +7,52 @@
 	/>
 <title>Gestion des notes eleves</title>
 </head>
+<script>
+function fermer(id)
+{
+      var formg=document.getElementById(id);
+     
+     formg.note.readOnly=true;
+}
+</script>
+
 <body>
-		<p>Choix de la classe</p>
-		<div>
-			<form th:action="@{notes}" method="get">
-				<label for="classe">Selectionner la Classe</label>
-				<select name="classe" id="classe">
-					<option>6e</option>
-					<option>5e</option>
-					<option>4e</option>
-					<option>3e</option>
-					<option>2nd</option>
-					<option>1e</option>
-					<option>Tle</option>
-				</select>
-				<label for="matiere">Selectionner la Matiere</label>
-				<select name="matiere" id="matiere" >
-					<option >francais</option>
-					<option >maths</option>
-					
-				</select>
-				<button class="btn-primary">Afficher</button>
-			</form>
-		</div>
 		
-		<div class="container">
-	<table class="table">
+	<div class="container">
+	<form   th:action="@{save}" method="post" th:object="${form}" onsubmit="fermer(this.id);" >
+<table class="table table-hover table-sm" >
 	<caption>TABLEAU DES ELEVES</caption>
+ <thead>
   <tr>
     <th>ID</th>
     <th>NOM</th>
     <th>NOTE</th>
   </tr>
-  <tr th:each="el:${liste_eleve}">
-    <td th:text="${el.matricule}"></td>
-    <td th:text="${el.nom}"></td>
-    <td><form th:action="@{ajouter_note(eleve=${el.matricule},classe=${nomclasse},matiere=${libelle})}" method="post" th:objet="${el}">
-    		<input type="number" th:value="${note}"name="note"/>
-    	</form></td>
+ </thead>
+ <tbody>
+  <tr th:if="${liste_eleve.empty}">
+     <td>la liste des eleves est vide</td>
+  </tr>
+  <tr th:each="el,itemStat:${liste_eleve}"  >
+    <td th:text="${el.matricule}" scope="row"></td>
+    <td th:text="${el.nom}" scope="row"></td>
+    <td scope="row">
+    
+	    		<input type="hidden"  th:field="*{liste_evaluation[__${itemStat.index}__].eleve}"/>
+	    		<input type="hidden"  th:field="*{liste_evaluation[__${itemStat.index}__].matiere}" />
+	            <input type="hidden"  th:field="*{liste_evaluation[__${itemStat.index}__].periode_eval}"/> 
+	    		<input type="number"   th:field="*{liste_evaluation[__${itemStat.index}__].note}" name="note"/>
+	    		
+	    		
+	    	
+    </td>
     </tr>
+ </tbody>
 </table>
+
+	<button type="submit" class="btn btn-success btn-sm" > sauvegarder</button>
+</form>
 </div>	
-</body>
+
+</body> 
 </html>

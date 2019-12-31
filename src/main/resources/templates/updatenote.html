@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+<title>Gestion des notes eleves</title>
+</head>
+<script>
+function modif(id)
+{
+      var val=prompt("entrer la nouvelle note");
+      document.getElementById(id).note.value=val;
+      return true
+}
+</script>
+
+<body>
+		
+	<div class="container">
+	<div ></div>
+	<table class="table table-sm table-hover">
+	<caption>TABLEAU DES ELEVES</caption>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>NOM</th>
+    <th>PRENOM</th>
+    <th>NOM TUTEUR</th>
+    <th>SEXE</th>
+    <th>NOTE</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${liste_evaluation.empty}">
+  	
+     <td>aucun eleve ici a deja une note!! veuillez dabord remplir les notes de ces eleves</td>
+  </tr>
+  
+  <tr th:each="el,itemStat:${liste_evaluation}"  >
+    <td th:text="${el.eleve.matricule}"></td>
+    <td th:text="${el.eleve.nom}"></td>
+    <td th:text="${el.eleve.prenom}"></td>
+    <td th:text="${el.eleve.nom_tuteur}"></td>
+    <td th:text="${el.eleve.sexe}"></td>
+    <td th:text="${el.note}"> </td>
+    <th>
+    	<form   th:action="@{updatenote}" method="post" th:id="${el.id_evaluation}"/>
+    		<input type="hidden" th:value="${el.id_evaluation}" name="idevaluation">
+			
+		
+    		<input type="hidden"   name="note">
+    		<button type="submit" class="btn btn-secondary btn-sm" value="modifier"  onclick="modif(this.form.id);">modifier</button>
+    	</form>
+    </th>
+    </tr>
+ </tbody>
+</table>
+
+
+</div>	
+
+</body> 
+</html>

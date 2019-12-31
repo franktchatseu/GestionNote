@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Ajout des notes des eleves</title>
+
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+</head>
+<body>
+		<p>Enregistrement des notes eleves</p>
+		<div>
+			<form th:action="@{visuel}" method="get">
+			<label for="classe">Selectionner la Sequence</label>
+				<select name="sequence" id="sequence">
+					<option>sequence1</option>
+					<option>sequence2</option>
+					<option>sequence3</option>
+				</select>
+				<label for="classe">Selectionner la Classe</label>
+				<select name="classe" id="classe">
+					<option>6e</option>
+					<option>5e</option>
+					<option>4e</option>
+					<option>3e</option>
+					<option>2nd</option>
+					<option>1e</option>
+					<option>Tle</option>
+				</select>
+				<label for="matiere">Selectionner la Matiere</label>
+				<select name="matiere" id="matiere" >
+					<option >francais</option>
+					<option >maths</option>
+					
+				</select>
+				
+				<button type="submit" class="btn btn-success btn-sm" name="aff" value="ajouter">ajouter</button>
+				<button type="submit" class="btn btn-info btn-sm" name="aff" value="afficher" >afficher</button>
+				
+			</form>
+		</div>
+		
+</body>
+</html>

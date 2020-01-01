@@ -47,16 +47,16 @@ public class EleveControler {
 	
 	
 	@RequestMapping(value = "/eleve")
-	public String PageEleve(Model model,@RequestParam(name="page", defaultValue = "0") int p,@RequestParam(name="size", defaultValue = "4") int size,@RequestParam(name="motcle",defaultValue = "")String mc) {
+	public String PageEleve(Model model,@RequestParam(name="page", defaultValue = "0") int p,@RequestParam(name="size", defaultValue = "4") int size,@RequestParam(name="classe",defaultValue = "")String classe) {
 		
 		
 		//Page<Eleve> pageeleve=eleveinterface.findAll(PageRequest.of(p, size));
-		Page<Eleve> pageeleve=eleveinterface.chercher("%"+mc+"%",PageRequest.of(p, size));
+		Page<Eleve> pageeleve=eleveinterface.chercher(classe,PageRequest.of(p, size));
 		//le tableau de toute nos page
 		int [] pages=new int[pageeleve.getTotalPages()];
 		//on ajoute au model 
 		
-		model.addAttribute("motcle", mc);
+		model.addAttribute("classe",classe);
 		model.addAttribute("pages", pages);
 		model.addAttribute("listEleve",pageeleve.getContent());
 		model.addAttribute("pageCourante", p);
@@ -136,6 +136,7 @@ public class EleveControler {
 			}
 			
 			
+			
 				
 		}
 		@PostMapping("/save")
@@ -165,6 +166,26 @@ public class EleveControler {
 
 			}
 			return "acceuil.html";
+		}
+		@RequestMapping(value ="/detailsnote")
+		public String detailsnote(Model model,@RequestParam(name="matricule") long matricule,@RequestParam(name="nom") String nom,String prenom,String nom_tuteur,String classe) {
+			
+			List<Matiere> listematiere=matiereinterface.ListeMatiereEleve(matricule);
+			List<List<Evaluation>> listedeliste=new ArrayList<List<Evaluation>>();
+			for(Matiere m: listematiere) {
+			//on recupere toute les notes de eleves suivant une matiere donnee
+			List<Evaluation> listeevaluation=evaluationinterface.ListeEvaluationEleve(matricule,m.getLibelle());
+			listedeliste.add(listeevaluation);
+			}
+			model.addAttribute("listematiere",listematiere);
+			model.addAttribute("listedeliste",listedeliste);
+			
+			model.addAttribute("matricule", matricule);
+			model.addAttribute("nom", nom);
+			model.addAttribute("prenom", prenom);
+			model.addAttribute("nom_tuteur", nom_tuteur);
+			model.addAttribute("classe", classe);
+			return "detailnote";
 		}
 		
 }

@@ -15,8 +15,8 @@ public interface EleveInterface extends JpaRepository<Eleve, Long> {
 	
 	public Eleve findBymatricule(Long id);
 	//mes methodes en supplementaires
-	@Query("select e from Eleve e where e.nom like :x")
-	Page<Eleve> chercher(@Param("x")String motcle,Pageable pa);
+	@Query("select e from Eleve e inner join e.classe where e.classe.nomClasse= :x")
+	Page<Eleve> chercher(@Param("x")String classe,Pageable pa);
 	
 	@Query("select distinct e from Eleve e,Matiere m,Evaluation eva,PeriodeEvaluation p  where e.classe.nomClasse = :X and m.libelle= :Y and  m.classe.nomClasse =e.classe.nomClasse and e.matricule not in (select eva.eleve.matricule from Evaluation eva where eva.matiere.libelle= :Y and eva.periode_eval.libelle= :Z )")
 	public List<Eleve> ListeEleveClasse(@Param("X")String id_classe,@Param("Y")String libelle,@Param("Z")String sequence);

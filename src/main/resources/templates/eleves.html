@@ -17,25 +17,20 @@
 </head>
 <body>
 
-	<div class="container card-body"  >
-		<form th:action="@{ajout}" method="post" onsubmit="return verification();">
-			
-			<div class="form-group" ><label for="nom">NOM</label><input type="text" name="nom" id="nom"/></div>
-			<div class="form-group" ><label for="prenom">PRENOM</label><input type="text" name="prenom" id="prenom"/></div>
-			<div class="form-group" ><label for="nomtuteur">NOM TUTEUR</label><input type="text" class="from-control" name="nomtuteur" id="nomtuteur"/></div>
-			<div class="form-group" ><label for="teltuteur">TEL TUTEUR</label><input type="text" class="from-control" name="teltuteur" id="teltuteur"/></div>
-			<div class="form-group" ><label for="sexe">SEXE</label><input type="radio" name="sexe" class="from-control" id="sexe" value="M"/>M<input type="radio" name="sexe" id="sexe" value="F"/>F</div>
-			<div class="form-group" ><label for="datenais">TEL TUTEUR</label><input type="date" class="from-control" name="datenais" id="datenais"/></div>
-			<input type="submit"   value="ajouter"/>
-			<div id="message"></div>
-		</form>
-	
-	</div>
+
 	<div class="container">
 		<form th:action="@{eleve}" method="get">
-			<label for="motcle">mot a chercher</label>
-			<input type="text" name="motcle" id="motcle"/>
-			<button class="btn btn-danger">Chercher</button>
+			<label for="classe">Selectionner la Classe</label>
+				<select name="classe" id="classe">
+					<option>6e</option>
+					<option>5e</option>
+					<option>4e</option>
+					<option>3e</option>
+					<option>2nd</option>
+					<option>1e</option>
+					<option>Tle</option>
+				</select>
+			<button class="btn btn-success">Chercher</button>
 			
 		</form>
 	</div>
@@ -65,7 +60,7 @@
     <td th:text="${el.sexe}"></td>
     <td th:text="${el.date_naissance}"></td>
     <td th:text="${el.classe.nomClasse}"></td>
-    <td><a th:href="@{delete(id=${el.matricule},motcle=${motcle},page=${pageCourante})}">Supprimer</a></td>
+    <td><a th:href="@{detailsnote(matricule=${el.matricule},nom=${el.nom},prenom=${el.prenom},nom_tuteur=${el.nom_tuteur},classe=${el.classe.nomClasse})}">details</a></td>
     
     
   </tr>

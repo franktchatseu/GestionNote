@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- on insere la librerie pour le moteur de template thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- lorsqu'on utilise le template teamleaf toutes les balises doivent etres fermes -->
+<meta charset="utf-8"/>
+<title>elevee</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet"
+						th:href="@{css/monproprestyle/style.css}"
+	/>
+<script type="text/javascript" src="../static/js/monjavascript/script.js"  th:src="@{js/monjavascript/script.js}"></script>
+
+
+</head>
+<body>
+
+	<br>
+	<div class="container" >
+		<span>MATRICULE: </span><span th:text="${matricule}">1255</span>
+		<span>NOM: </span><span th:text="${nom}">TCHATSEU</span>
+		<span>PRENOM: </span><span th:text="${prenom}">FRANK</span>
+		<span>NOM DU TUTEUR: </span><span th:text="${nom_tuteur}">LOUENKAM</span>
+		<span>CLASSE:  </span><span th:text="${classe}">6e</span>
+		
+	</div>
+	<br>
+	<h3 align="center">affichage de toutes les notes deja enregistres pour cette eleve</h3>
+<table class="table" th:each="liste,status:${listedeliste}" th:unless	="${liste.empty}">
+<thead class="table-header">
+  <tr>
+    <th>Matiere    		</th>
+    <th th:each="el:${liste}" th:text="${el.periode_eval.libelle}"></th>
+   
+    
+    
+  </tr>
+  </thead>
+  <tr >
+  	<td th:text="${listematiere[__${status.index}__].libelle}"></td>
+  	<td  th:each="el:${liste}" th:text="${el.note}"></td>
+  </tr>
+</table>
+
+
+</body>
+</html>

@@ -16,4 +16,8 @@ public interface MatiereInterface extends JpaRepository<Matiere,Long> {
 	
 	@Query("select m from Matiere m where m.classe.nomClasse = :X and m.libelle= :Y")
 	public Matiere ListeMatiereClasse(@Param("X")String id_classe,@Param("Y")String libelle);
+	
+	//cette methode permet de consulter toute les notes deja enregistre d'un eleve
+	@Query("select distinct m from Matiere m , Eleve e where m.classe.nomClasse=e.classe.nomClasse and e.matricule= :X")
+	public List<Matiere> ListeMatiereEleve(@Param("X") long id);
 }

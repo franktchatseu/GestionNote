@@ -9,11 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 @Entity
 public class Classe implements Serializable {
 	@Id
 	private String nomClasse;
-	private int nbre_eleve;
+
+	private long nbre_eleve;
+	
 	private String prof_titulaire;
 	
 	@OneToMany(mappedBy="classe", fetch=FetchType.LAZY)
@@ -22,12 +25,24 @@ public class Classe implements Serializable {
 	@OneToMany(mappedBy="classe", fetch=FetchType.LAZY)
 	private List<Matiere> liste_matiere;
 	
-	public Classe(String nomClasse, int nbre_eleve, String prof_titulaire) {
+	public Classe(String nomClasse, long nb, String prof_titulaire) {
+		super();
+		this.nomClasse = nomClasse;
+		this.nbre_eleve = nb;
+		this.prof_titulaire = prof_titulaire;
+	}
+
+
+	public Classe(String nomClasse, long nbre_eleve) {
 		super();
 		this.nomClasse = nomClasse;
 		this.nbre_eleve = nbre_eleve;
-		this.prof_titulaire = prof_titulaire;
 	}
+
+
+	
+
+
 	public Classe() {
 		super();
 	}
@@ -37,10 +52,10 @@ public class Classe implements Serializable {
 	public void setNom_classe(String nom_classe) {
 		this.nomClasse = nom_classe;
 	}
-	public int getNbre_eleve() {
+	public long getNbre_eleve() {
 		return nbre_eleve;
 	}
-	public void setNbre_eleve(int nbre_eleve) {
+	public void setNbre_eleve(long nbre_eleve) {
 		this.nbre_eleve = nbre_eleve;
 	}
 	public String getProf_titulaire() {

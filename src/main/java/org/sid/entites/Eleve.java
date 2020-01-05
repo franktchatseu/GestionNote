@@ -14,19 +14,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
 
 @Entity
-public class Eleve implements Serializable {
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long matricule;
-	@NotEmpty
-	private String nom;
-	private String prenom;
-	private String date_naissance;
+@PrimaryKeyJoinColumn(name="matricule")
+public class Eleve extends Personne implements Serializable {
 	
-	private char sexe;
+	
 	@NotEmpty
 	private String nom_tuteur;
 	@NotEmpty
@@ -45,9 +41,7 @@ public class Eleve implements Serializable {
 	
 	
 	
-	public long getMatricule() {
-		return matricule;
-	}
+	
 	public Classe getClasse() {
 		return classe;
 	}
@@ -62,7 +56,7 @@ public class Eleve implements Serializable {
 	}
 	public Eleve(String nom, String prenom, String date_naissance, char sexe, String nom_tuteur,
 			String tel_tuteur, String mail_tuteur,Classe classe) {
-		super();
+		super(nom, prenom, date_naissance, sexe);
 		this.nom = nom;
 		this.prenom = prenom;
 		this.date_naissance = date_naissance;
@@ -74,12 +68,8 @@ public class Eleve implements Serializable {
 		
 	}
 	
-	public Eleve() {
-		super();
-	}
-	public void setMatricule(int matricule) {
-		this.matricule = matricule;
-	}
+	
+	
 	public String getNom_tuteur() {
 		return nom_tuteur;
 	}
@@ -146,12 +136,18 @@ public class Eleve implements Serializable {
 	public void setSexe(char sexe) {
 		this.sexe = sexe;
 	}
-
-
-
-	public void setMatricule(long matricule) {
-		this.matricule = matricule;
+	public Eleve(String nom, String prenom, String date_naissance, char sexe) {
+		super(nom, prenom, date_naissance, sexe);
+		// TODO Auto-generated constructor stub
 	}
+	public Eleve() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
 	
 	
 	

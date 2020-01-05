@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>gestion des enseignants</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+</head>
+<body>
+<!-- deffinitrion du conteneur principale de ma page web -->
+	<div class="container card-body">
+<!-- 	definition du conteneur d'enregistrement des enseignents -->
+		<div class="container">
+			<form th:action="@{ajouter}" method="GET">
+				<label for="nom">Nom de l'enseignant:</label>
+				<input type="text"  placeholder="Entrez un nom" name="nom" id="nom"/>
+				<label for="prenom">Prenom de l'enseignant:</label>
+				<input type="text"  placeholder="Entrez un prenom" name="prenom" id="prenom"/>
+				<label for="cni">Numero de cni:</label>
+				<input type="text"  placeholder="Entrez une CNI" name="cni" id="cni"/>
+				<label for="fonction">Fonction de l'enseignant:</label>
+				<input type="text"  placeholder="Entrez une fonction" name="fonction" id="fonction"/>
+				<label for="niveau">Niveau de l'enseignant:</label>
+				<input type="text"  placeholder="Entrez un niveau" name="niveau" id="niveau"/>
+				<input type="reset" value="Annuler"/>
+				<input type="submit" value="Valider"/>
+			</form>
+		</div>
+<!-- 		definition du conteneur d'affichage des enseignants -->
+		<div class="container">
+<!-- 		definition du conteneur de recherche d'un enseignant -->
+			<div class="container">
+				<form th:action="@{enseignant}" method="POST">
+					<label for="rech">Rechercher par nom: </label>
+					<input type="text" placeholder="mot clé" name="rech" id="rech" th:value="${ensmotcle}"/>
+					<button>Rechercher</button>			
+				</form>
+			</div>
+			
+<!-- 			corps d'affichage des enseignants -->
+			<div class="container">
+				<table class="table">
+				<caption align="top">Liste des Enseignants:</caption>
+				<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nom(s)</th>
+					<th>Prenom(s)</th>
+					<th>CNI</th>
+					<th>Fonction</th>
+					<th>Niveau</th>
+					<th>Supprimer ou Modifier</th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				<tr th:each="e:${ListeEnseignant}">
+					<td th:text="${e.idEnseignant}"></td>
+					<td th:text="${e.nom}"></td>
+					<td th:text="${e.prenom}"></td>
+					<td th:text="${e.cni}"></td>
+					<td th:text="${e.fonction}"></td>
+					<td th:text="${e.niveau}"></td>
+					<td> <a th:href="@{deleteEnseignant(id=${e.idEnseignant}, rech=${ensmotcle}, page=${enspagecourante})}"> Supprimer </a><a href="">Modifier</a> </td>
+					
+				</tr>
+				</tbody>
+				
+				<tfoot>
+				<tr>
+					<th>Id</th>
+					<th>Nom(s)</th>
+					<th>Prenom(s)</th>
+					<th>CNI</th>
+					<th>Fonction</th>
+					<th>Niveau</th>
+					<th>Supprimer ou Modifier</th>
+				</tr>
+				</tfoot>
+				
+				</table>
+			
+			
+			
+			</div>
+			<div>
+				<ul class="nav nav-pills">
+  					<li  th:each="pa,status:${enspagetotal}">
+						<a th:href="@{enseignant(page=${status.index}, rech=${ensmotcle})}" th:text="${status.index}"></a>
+ 					</li>
+  
+				</ul>
+
+			</div>
+		
+		</div>
+	
+	
+	</div>
+</body>
+</html>

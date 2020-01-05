@@ -22,14 +22,10 @@
 		<form th:action="@{eleve}" method="get">
 			<label for="classe">Selectionner la Classe</label>
 				<select name="classe" id="classe">
-					<option>6e</option>
-					<option>5e</option>
-					<option>4e</option>
-					<option>3e</option>
-					<option>2nd</option>
-					<option>1e</option>
-					<option>Tle</option>
-				</select>
+				<div th:each="c:${list_classe}">
+					<option th:text="${c.nomClasse}"></option>
+				</div>
+			</select>
 			<button class="btn btn-success">Chercher</button>
 			
 		</form>

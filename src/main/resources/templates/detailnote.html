@@ -18,16 +18,22 @@
 <body>
 
 	<br>
-	<div class="container" >
-		<span>MATRICULE: </span><span th:text="${matricule}">1255</span>
-		<span>NOM: </span><span th:text="${nom}">TCHATSEU</span>
-		<span>PRENOM: </span><span th:text="${prenom}">FRANK</span>
-		<span>NOM DU TUTEUR: </span><span th:text="${nom_tuteur}">LOUENKAM</span>
-		<span>CLASSE:  </span><span th:text="${classe}">6e</span>
+	<div class="col-md-6 col-md-offset-3" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">INFO SUR ELEVE</div>
+			<div class="panel-body">
+				     <div ><span>MATRICULE: </span><span  th:text="${matricule}">1255</span></div>
+					<div><span >PRENOM: </span><span  th:text="${prenom}">FRANK</span></div>
+					<div><span>NOM DU TUTEUR: </span><span  th:text="${nom_tuteur}">LOUENKAM</span></div>
+					<div><span >CLASSE:  </span><span  th:text="${classe}">6e</span></div>
 		
-	</div>
+			</div>
+		</div>
+		</div>
+		
+	
 	<br>
-	<h3 align="center">affichage de toutes les notes deja enregistres pour cette eleve</h3>
+	
 <table class="table" th:each="liste,status:${listedeliste}" th:unless	="${liste.empty}">
 <thead class="table-header">
   <tr>

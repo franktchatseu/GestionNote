@@ -5,3 +5,8 @@ span{
 	margin: 20px;
 	display: inline;
 }
+.card-body>div{
+	margin-right: 40px;
+	color:gray;
+	display: in
+}

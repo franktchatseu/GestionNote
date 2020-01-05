@@ -45,9 +45,47 @@ public class EleveControler {
 	//ce controleur doit renvoyer une page
 	//et on precise url de la page qui sera charge
 	
+	//partie du controleur sur la gestion des eleves
 	
+	@RequestMapping(value = "/pageeleve")
+	public String PageEleve1(Model model,@RequestParam(name="page", defaultValue = "0") int p,@RequestParam(name="size", defaultValue = "4") int size,@RequestParam(name="motcle",defaultValue = "")String mc) {
+		
+		
+		//Page<Eleve> pageeleve=eleveinterface.findAll(PageRequest.of(p, size));
+		Page<Eleve> pageeleve=eleveinterface.chercherparmotcle("%"+mc+"%",PageRequest.of(p, size));
+		//le tableau de toute nos page
+		int [] pages=new int[pageeleve.getTotalPages()];
+		//on ajoute au model 
+		
+		model.addAttribute("motcle", mc);
+		model.addAttribute("pages", pages);
+		model.addAttribute("listEleve",pageeleve.getContent());
+		model.addAttribute("pageCourante", p);
+		
+		//on recupere toute les classes de la base de donnee
+				List<Classe> list=classeinterface.findAll();
+				model.addAttribute("list_classe",list);
+		return "eleves1";
+	}
+	//vue de suppression
+	@RequestMapping(value="/deleteeleve", method = RequestMethod.GET)
+	public String deleteeleve(long id,String motcle,int page) {
+		eleveinterface.deleteById(id);
+		return "redirect:/pageeleve?page="+page+"&motcle="+motcle;
+	}
+	
+	//vue ajout
+	@RequestMapping(value ="/ajouteleve",method =RequestMethod.POST )
+	public String ajoutereleve(@RequestParam(name="nom")String nom,@RequestParam(name="prenom")String prenom,@RequestParam(name="nomtuteur")String nomtuteur,@RequestParam(name="teltuteur")String teltuteur,@RequestParam(name="sexe")String sexe,@RequestParam(name="datenais")String datenais,@RequestParam(name="classe")String classe) {
+		
+		eleveinterface.save(new Eleve(nom, prenom, datenais, sexe.charAt(0), nomtuteur, teltuteur,teltuteur,new Classe(classe)));
+		
+		return "redirect:/pageeleve";
+	}
+	
+	//partie du controleur pour la gestion notes
 	@RequestMapping(value = "/eleve")
-	public String PageEleve(Model model,@RequestParam(name="page", defaultValue = "0") int p,@RequestParam(name="size", defaultValue = "4") int size,@RequestParam(name="classe",defaultValue = "")String classe) {
+	public String PageEleve(Model model,@RequestParam(name="page", defaultValue = "0") int p,@RequestParam(name="size", defaultValue = "4") int size,@RequestParam(name="classe",defaultValue = "6e")String classe) {
 		
 		
 		//Page<Eleve> pageeleve=eleveinterface.findAll(PageRequest.of(p, size));
@@ -60,7 +98,11 @@ public class EleveControler {
 		model.addAttribute("pages", pages);
 		model.addAttribute("listEleve",pageeleve.getContent());
 		model.addAttribute("pageCourante", p);
-		return "eleves";
+		//on recupere toute les classes de la base de donnee
+		List<Classe> list=classeinterface.findAll();
+		model.addAttribute("list_classe",list);
+		
+		return "visualisationnote";
 	}
 	//vue de suppression
 	@RequestMapping(value="/delete", method = RequestMethod.GET)
@@ -72,7 +114,7 @@ public class EleveControler {
 	@RequestMapping(value ="/ajout",method =RequestMethod.POST )
 	public String ajouter(@RequestParam(name="nom")String nom,@RequestParam(name="prenom")String prenom,@RequestParam(name="nomtuteur")String nomtuteur,@RequestParam(name="teltuteur")String teltuteur,@RequestParam(name="sexe")String sexe,@RequestParam(name="datenais")String datenais) {
 		
-		eleveinterface.save(new Eleve(nom, prenom, datenais, sexe.charAt(0), nomtuteur, teltuteur,teltuteur,new Classe("6e")));
+	
 		
 		return "redirect:/eleve";
 	}
@@ -93,12 +135,22 @@ public class EleveControler {
 			return "acceuil.html";
 	}
 	//vue pour la gestion des notes eleves
-		@RequestMapping(value="/ajouter_note",method =RequestMethod.POST)
-		public String ajouter_note(Model model,@RequestParam(name="note") int note,@RequestParam(name="classe") String nomclasse,@RequestParam(name="matiere")String libelle_matiere,@RequestParam(name="sequence")String sequence) {
+		@RequestMapping(value="/login")
+		public String login() {
+		
+				return "login.html";
+		}
+		@RequestMapping(value="/403")
+		public String accesdenied() {
+		
+				return "accessdenied.html";
+		}
+		@RequestMapping(value="/")
+		public String index() {
 		
 			
 			
-				return "redirect:/visuel?classe="+nomclasse+"&matiere="+libelle_matiere+"&sequence="+sequence+"&note="+note;
+				return "visualisationnote";
 		}
 		
 		//etape 1 deja ok!

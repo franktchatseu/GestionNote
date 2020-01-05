@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>gestion des Classes</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+	<link type="text/css" rel="stylesheet"  href="css/styles.css"/>
+</head>
+<body>
+<!-- deffinitrion du conteneur principale de ma page web -->
+	<div class="nav nav-pills">
+<!-- 	definition du conteneur d'enregistrement des enseignents -->
+		<div class="container">
+			<form th:action="@{ajoutClasse}" method="GET">
+				<label for="nom">Nom de la Classe:</label>
+				<input type="text"  placeholder="Entrez un nom" name="noms" id="nom"/>
+				<label for="place">Nombre de place:</label>
+				<input type="text"  placeholder="Entrez un nombre" name="places" id="place"/>
+				<label>Choix du prof titulaire</label>
+				<select name="profs">
+				<option selected="selected">Auccun</option>
+				<div th:each="e:${list_enseignant}">
+					<option th:text="${e.nom}"></option>
+				</div>
+				</select>
+				
+				<input type="reset" value="Annuler"/>
+				<input type="submit" value="Valider"/>
+			</form>
+		</div>
+<!-- 		definition du conteneur d'affichage des enseignants -->
+		<div class="container">
+<!-- 		definition du conteneur de recherche d'un enseignant -->
+			<div class="recherche">
+				<form th:action="@{classes}" method="post">
+					<label for="rech">Rechercher par nom: </label>
+					<input type="text" placeholder="mot clé" name="rech" id="rech"/>
+					<button>Rechercher</button>			
+				</form>
+			</div>
+			
+<!-- 			corps d'affichage des enseignants -->
+			<div class="affichage">
+				<table class="table">
+				<caption align="top">Liste des Classes:</caption>
+				<thead>
+				<tr>
+					<th>Nom</th>
+					<th>nombre de Place</th>
+					<th>Prof titulaire</th>
+					<th>Supprimer ou Modifier</th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				<tr th:each="c:${ListeClasses}">
+					<td th:text="${c.nomClasse}"></td>
+					<td th:text="${c.nbre_eleve}"></td>
+					<td th:text="${c.prof_titulaire}"></td>
+					<td> <a th:href="@{deleteClasses(id=${c.nomClasse}, rech=${clamotcle}, page=${clapagecourante})}"> Supprimer </a><a href="">Modifier</a> </td>
+					
+				</tr>
+				</tbody>
+				
+				<tfoot>
+				<tr>
+					<th>Nom</th>
+					<th>nombre de Place</th>
+					<th>Prof titulaire</th>
+					<th>Supprimer ou Modifier</th>
+				</tr>
+				</tfoot>
+				
+				</table>
+			
+			
+			
+			</div>
+			<div>
+				<ul class="nav nav-pills">
+  					<li  th:each="pa,status:${clapagetotal}">
+						<a th:href="@{classes(page=${status.index}, rech=${clamotcle})}" th:text="${status.index}"></a>
+ 					</li>
+  
+				</ul>
+
+			</div>
+		</div>
+	
+	
+	</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>gestion des matieres</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+</head>
+<body>
+<!-- conteneur principale -->
+	<div>
+<!-- 	zonne d'ajout des matieres -->
+		<aside>
+		<form th:action="@{ajoutMatiere}" method="get">
+			<label for="libele">Libellé de la matiere:</label>
+			<input type="text"  placeholder="libellé" name="libele" id="libele"/>
+			<label for="coefficient">Coef de la Matiere:</label>
+			<input type="text"  placeholder="coefficient" name="coefficient" id="coefficient"/>
+			<label for="prof">Choix de l'enseignant</label>
+			
+			<select name="profs" id="prof">
+				<option selected="selected">Auccun</option>
+				<div th:each="e:${list_enseignant}">
+					<option th:text="${e.idEnseignant}"></option>
+				</div>
+			</select>
+			<label for="classe">Choix de la classes</label>
+			<select name="classes" id="classe">
+				<option selected="selected">Auccun</option>
+				<div th:each="c:${list_classe}">
+					<option th:text="${c.nomClasse}"></option>
+				</div>
+			</select>
+			<button type="reset">Annuler</button>
+			<button type="submit">Enregistrer</button>
+			</form>
+		</aside>
+<!-- 		gestion du reste du contenu -->
+		<article>
+<!-- 			zonne de filtrage -->
+			<div>
+				<form th:action="@{matiere}" method="get">
+					<label for="filtre">Choix de l'Affichage</label>
+					<select name="classes" id="classe">
+						<option selected="selected">Tous</option>
+						<div th:each="c:${list_classe}">
+							<option th:text="${c.nomClasse}"></option>
+						</div>
+					</select>
+					<button type="submit">Filtrer</button>
+				</form>
+			</div>
+<!-- 				zonne de recherche -->
+			<div>
+				<form th:action="@{matiere}" method="get">
+					<label for="rech">Rechercher par Matiere: </label>
+					<input type="text" placeholder="matiere" name="rech" id="rech" th:value="${matmotcle}"/>
+					<button>Rechercher</button>			
+				</form>
+			
+				
+			</div>
+<!-- 				zonne d'affichage -->
+			<div>
+				<table class="table">
+				<caption align="top">Liste des Classes:</caption>
+				<thead>
+				<tr>
+<!-- 					<th>Id</th> -->
+					<th>Libelle</th>
+					<th>Coefficient</th>
+					<th>prof de la matiere</th>
+					<th>Classe</th>
+					<th>Supprimer ou Modifier</th>
+				</tr>
+				</thead>
+				
+				<tbody>
+				<tr th:each="m:${malistMatiere}">
+<!-- 					<td th:text="${m.id_matiere}"></td> -->
+					<td th:text="${m.libelle}"></td>
+					<td th:text="${m.coef}"></td>
+<!--  					<td th:text="${m.enseignant.nom}"></td>-->
+<!-- 					<td th:text="${m.classe.nomClasse}"></td>-->
+					
+<!-- 					<td> <a th:href="@{deleteMatiere(id=${c.idMatiere}, rech=${matmotcle}, page=${matpagecourante})}"> Supprimer </a><a href="">Modifier</a> </td> -->
+					
+				</tr>
+				</tbody>
+				
+				<tfoot>
+				<tr>
+<!-- 					<th>Id</th> -->
+					<th>Libelle</th>
+					<th>Coefficient</th>
+					<th>prof de la matiere</th>
+					<th>Classe</th>
+					<th>Supprimer ou Modifier</th>
+				</tr>
+				</tfoot>
+				
+				</table>
+				
+			</div>
+				
+		</article>
+	
+	</div>
+	
+</body>
+</html>

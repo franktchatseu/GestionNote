@@ -12,6 +12,7 @@ import org.sid.dao.EvaluationInterface;
 import org.sid.dao.InterfaceProduit;
 import org.sid.dao.MatiereInterface;
 import org.sid.dao.PeriodeInterface;
+import org.sid.dao.RoleRepository;
 import org.sid.dao.TrimestreInterface;
 import org.sid.entites.Classe;
 import org.sid.entites.Eleve;
@@ -20,6 +21,7 @@ import org.sid.entites.Evaluation;
 import org.sid.entites.Matiere;
 import org.sid.entites.PeriodeEvaluation;
 import org.sid.entites.Produit;
+import org.sid.entites.Roles;
 import org.sid.entites.Trimestre;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -46,6 +48,8 @@ public class GestionNoteApplication {
 	 EnseignantInterface enseignantinterface=ctx.getBean(EnseignantInterface.class);
 	 TrimestreInterface trimestreinterface=ctx.getBean(TrimestreInterface.class);
 	 PeriodeInterface periodeinterface=ctx.getBean(PeriodeInterface.class);
+	 RoleRepository rolerepository=ctx.getBean(RoleRepository.class);
+	// eleveinterface.save(new Eleve("tchatseu","louenkam","04/14/2000", 'M', "louenkam edouard","690083767","edlouenk@gmail.com",classeinterface.findBynomClassee("6e")));
 //	 //insertion des trimestre
 //	 trimestreinterface.save(new Trimestre("trimestre 1"));
 //	 trimestreinterface.save(new Trimestre("trimestre 2"));

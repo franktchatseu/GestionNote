@@ -19,6 +19,8 @@ public class Users implements Serializable{
 	@OneToMany(mappedBy="users", fetch=FetchType.LAZY)
 	private Collection<UsersRoles> usersRoles;
 
+
+
 	public String getUsername() {
 		return username;
 	}
@@ -33,6 +35,14 @@ public class Users implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Collection<UsersRoles> getUsersRoles() {
+		return usersRoles;
+	}
+
+	public void setUsersRoles(Collection<UsersRoles> usersRoles) {
+		this.usersRoles = usersRoles;
 	}
 
 	public Users(String username, String password, Collection<Roles> roles) {

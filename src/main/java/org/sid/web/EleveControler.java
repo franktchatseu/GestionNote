@@ -15,10 +15,14 @@ import org.sid.entites.Eleve;
 import org.sid.entites.Evaluation;
 import org.sid.entites.Matiere;
 import org.sid.entites.PeriodeEvaluation;
+import org.sid.entites.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.expression.spel.ast.Elvis;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -136,9 +140,10 @@ public class EleveControler {
 	}
 	//vue pour la gestion des notes eleves
 		@RequestMapping(value="/login")
-		public String login() {
-		
-				return "login.html";
+		public String login(Model model,String username,String password) {
+				
+			
+				return "login";
 		}
 		@RequestMapping(value="/403")
 		public String accesdenied() {
@@ -146,10 +151,12 @@ public class EleveControler {
 				return "accessdenied.html";
 		}
 		@RequestMapping(value="/")
-		public String index() {
-		
+		public String index(Model model) {
 			
-			
+			//recuperation de la session authentification d'un utilisateur
+			SecurityContext ctx = SecurityContextHolder.getContext();				
+            UserDetails d= (UserDetails )ctx.getAuthentication().getPrincipal();
+				System.out.println(d.getUsername());
 				return "visualisationnote";
 		}
 		
@@ -237,6 +244,8 @@ public class EleveControler {
 			model.addAttribute("prenom", prenom);
 			model.addAttribute("nom_tuteur", nom_tuteur);
 			model.addAttribute("classe", classe);
+			
+			
 			return "detailnote";
 		}
 		

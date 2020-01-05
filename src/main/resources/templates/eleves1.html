@@ -27,6 +27,7 @@
 			<div class="form-group" ><label for="sexe">SEXE</label><input type="radio" name="sexe" class="from-control" id="sexe" value="M"/>M<input type="radio" name="sexe" id="sexe" value="F"/>F</div>
 			<div class="form-group" ><label for="datenais">TEL TUTEUR</label><input type="date" class="from-control" name="datenais" id="datenais"/></div>
 			<div class="form-group" ><label for="datenais">CLASSE</label><select name="classe" id="classe">
+
 				<div th:each="c:${list_classe}">
 					<option th:text="${c.nomClasse}"></option>
 				</div>

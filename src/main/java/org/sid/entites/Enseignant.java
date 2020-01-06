@@ -1,5 +1,6 @@
 package org.sid.entites;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,12 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Enseignant {
-	@Id @GeneratedValue	
-	private Long idEnseignant;
+@PrimaryKeyJoinColumn(name="username")
+public class Enseignant extends Users{
+
 	
 	@NotEmpty
 	private String nom;
@@ -50,12 +52,26 @@ public class Enseignant {
 	
 	
 
+	
+
+	public Enseignant(String username, String password, @NotEmpty String nom, String prenom,
+			@NotEmpty String cni, @NotEmpty String fonction, String niveau) {
+		super(username, password);
+		this.nom = nom;
+		this.prenom = prenom;
+		this.cni = cni;
+		this.fonction = fonction;
+		this.niveau = niveau;
+		this.listeMatiere = listeMatiere;
+	}
+
+
 
 
 	public Enseignant(Long idEnseignant, @NotEmpty String nom, String prenom, @NotEmpty String cni,
 			@NotEmpty String fonction, String niveau) {
 		super();
-		this.idEnseignant = idEnseignant;
+		
 		this.nom = nom;
 		this.prenom = prenom;
 		this.cni = cni;
@@ -66,12 +82,8 @@ public class Enseignant {
 
 
 
-	public Long getIdEnseignant() {
-		return idEnseignant;
-	}
-	public void setIdEnseignant(Long idEnseignant) {
-		this.idEnseignant = idEnseignant;
-	}
+	
+	
 	public String getNom() {
 		return nom;
 	}

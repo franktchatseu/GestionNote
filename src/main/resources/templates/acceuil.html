@@ -9,9 +9,24 @@
 	/>
 </head>
 <body>
-		<p>Enregistrement des notes eleves</p>
-		<div>
-			<form th:action="@{visuel}" method="get">
+		<div class="col-md-6 col-md-offset-3" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">PROFIL DE ENSEIGNANT</div>
+			<div class="panel-body">
+				NOM:<span th:text="${enseignant.nom}"></span>
+				PRENOM:<span th:text="${enseignant.prenom}"></span>
+				FONCTION: <span th:text="${enseignant.fonction}"></span>697451212
+				NIVEAU: <span th:text="${enseignant.niveau}"></span>
+		
+			</div>
+		</div>
+		</div>
+			<br>
+		<div class="col-md-8 col-md-offset-3" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">ENREGISTREMENT ET MODICATION DES NOTES DE VOS ELEVES</div>
+			<div class="panel-body">
+				<form th:action="@{visuel}" method="get">
 			<label for="classe">Selectionner la Sequence</label>
 				<select name="sequence" id="sequence">
 					<option>sequence1</option>
@@ -35,12 +50,18 @@
 					
 				</select>
 				
+				
 				<button type="submit" class="btn btn-success btn-sm" name="aff" value="ajouter">ajouter</button>
 				<button type="submit" class="btn btn-info btn-sm" name="aff" value="afficher" >modifier</button>
 				
 				
 			</form>
+				
+			</div>
 		</div>
+		</div>
+			
+		
 		
 </body>
 </html>

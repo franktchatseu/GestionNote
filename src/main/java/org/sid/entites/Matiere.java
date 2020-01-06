@@ -30,7 +30,7 @@ public class Matiere implements Serializable {
 	private Classe classe;
 	
 	@ManyToOne
-	@JoinColumn(name="idEnseignant")
+	@JoinColumn(name="username")
 	private Enseignant enseignant;
 	
 	

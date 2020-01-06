@@ -86,6 +86,11 @@ public class GestionNoteApplication {
 //		evaluationinterface.save(new Evaluation(20, eleveinterface.findBymatricule(1L),matiereinterface.findByidMatiere(5L),periodeinterface.findByidPeriode(1L)));
 //		evaluationinterface.ListeEvaluation("6e","francais","sequence1").forEach(e->System.out.println(e.eleve.getNom()));
 		
+//	 List<Matiere> matiereenseignant=matiereinterface.ListeMatiereEnseignant("fj");
+//	 for(Matiere e:matiereenseignant) {
+//		 System.out.println(e.getLibelle());
+//	 }
+	 
 	}
 
 }

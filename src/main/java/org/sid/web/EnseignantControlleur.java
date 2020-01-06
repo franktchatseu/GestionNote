@@ -3,10 +3,15 @@ package org.sid.web;
 import java.util.List;
 
 import org.sid.dao.EnseignantInterface;
+import org.sid.dao.UsersRolesRepository;
 import org.sid.entites.Enseignant;
+import org.sid.entites.Roles;
+import org.sid.entites.Users;
+import org.sid.entites.UsersRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +33,8 @@ public class EnseignantControlleur {
 			
 			@Autowired
 			private EnseignantInterface enseignantType;
-			
+			@Autowired
+			private UsersRolesRepository usersrole;
 			
 			//methodes de renvoie des enseignants
 			@RequestMapping(value = "/enseignant")
@@ -56,13 +62,18 @@ public class EnseignantControlleur {
 			//methode d'ajout des enseignants
 			@RequestMapping(value="/ajouter",method = RequestMethod.GET)
 			public String saveEnseignant(
+					@RequestParam(name="username")String username,
+					@RequestParam(name="password") String password,
 					@RequestParam(name="nom")String nom,
 					@RequestParam(name="prenom") String prenom,
 					@RequestParam(name="fonction") String fonction,
 					@RequestParam(name="cni") String cni,@RequestParam(name="niveau") String niveau
 					) {
-				Enseignant e = new Enseignant(nom, prenom, cni, fonction, niveau);
+				//insertion de enseignants
+				Enseignant e = new Enseignant(username,password,nom, prenom, cni, fonction, niveau);
 				enseignantType.save(e);
+				
+				
 				//message pour la notification d'enregistrement
 				return "redirect:/enseignant";
 			}
@@ -83,7 +94,7 @@ public class EnseignantControlleur {
 //			
 			
 			@RequestMapping(value="/deleteEnseignant",method = RequestMethod.GET)
-			public String delete(@RequestParam(name="id") long id) {
+			public String delete(@RequestParam(name="id") String id) {
 				enseignantType.deleteById(id);
 				return "redirect:/enseignant";
 			}

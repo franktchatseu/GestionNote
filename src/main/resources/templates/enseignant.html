@@ -13,6 +13,12 @@
 <!-- 	definition du conteneur d'enregistrement des enseignents -->
 		<div class="container">
 			<form th:action="@{ajouter}" method="GET">
+			
+				<label for="username">login:</label>
+				<input type="text"  placeholder="Entrez votre login" name="username" id="nom"/>
+				<label for="password">Password</label>
+				<input type="text"  placeholder="Entrez votre password" name="password" id="prenom"/>
+			
 				<label for="nom">Nom de l'enseignant:</label>
 				<input type="text"  placeholder="Entrez un nom" name="nom" id="nom"/>
 				<label for="prenom">Prenom de l'enseignant:</label>
@@ -56,13 +62,13 @@
 				
 				<tbody>
 				<tr th:each="e:${ListeEnseignant}">
-					<td th:text="${e.idEnseignant}"></td>
+					<td th:text="${e.username}"></td>
 					<td th:text="${e.nom}"></td>
 					<td th:text="${e.prenom}"></td>
 					<td th:text="${e.cni}"></td>
 					<td th:text="${e.fonction}"></td>
 					<td th:text="${e.niveau}"></td>
-					<td> <a th:href="@{deleteEnseignant(id=${e.idEnseignant}, rech=${ensmotcle}, page=${enspagecourante})}"> Supprimer </a><a href="">Modifier</a> </td>
+					<td> <a th:href="@{deleteEnseignant(id=${e.username}, rech=${ensmotcle}, page=${enspagecourante})}"> Supprimer </a><a href="">Modifier</a> </td>
 					
 				</tr>
 				</tbody>

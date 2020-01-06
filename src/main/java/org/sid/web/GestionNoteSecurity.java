@@ -47,8 +47,8 @@ public class GestionNoteSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers(	"/eleve","/delete","/css/**","/visuel","/detailsnote","/save","/image/**").permitAll().
-				antMatchers("/visuel").hasRole("ADMIN")
+				.antMatchers(	"/eleve","/delete","/css/**","/visuel","/detailsnote","/save","/image/**").permitAll()
+				.antMatchers("/visuel").hasRole("ADMIN")
 			.anyRequest()
 				.authenticated()
 					.and();

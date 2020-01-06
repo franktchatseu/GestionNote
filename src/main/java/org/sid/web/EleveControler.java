@@ -7,11 +7,13 @@ import javax.validation.Valid;
 
 import org.sid.dao.ClasseInterface;
 import org.sid.dao.EleveInterface;
+import org.sid.dao.EnseignantInterface;
 import org.sid.dao.EvaluationInterface;
 import org.sid.dao.MatiereInterface;
 import org.sid.dao.PeriodeInterface;
 import org.sid.entites.Classe;
 import org.sid.entites.Eleve;
+import org.sid.entites.Enseignant;
 import org.sid.entites.Evaluation;
 import org.sid.entites.Matiere;
 import org.sid.entites.PeriodeEvaluation;
@@ -46,6 +48,8 @@ public class EleveControler {
 	private ClasseInterface classeinterface;
 	@Autowired
 	private PeriodeInterface periodeinterface;
+	@Autowired
+	private EnseignantInterface enseignantinterface;
 	//ce controleur doit renvoyer une page
 	//et on precise url de la page qui sera charge
 	
@@ -127,10 +131,17 @@ public class EleveControler {
 	@RequestMapping(value="/notes",method =RequestMethod.GET)
 	public String notes(Model model,@RequestParam(name="classe",defaultValue = "6e")String nomClasse,@RequestParam(name="matiere",defaultValue="francais")String libelle_matiere,@RequestParam(name="sequence",defaultValue = "sequence 1") String sequence) {
 		
-		List<Matiere> matiereClasse=matiereinterface.ListeMatiereClasse(nomClasse);
-	
+
+		//recuperation de la session authentification d'un utilisateur
+		SecurityContext ctx = SecurityContextHolder.getContext();				
+        UserDetails users= (UserDetails )ctx.getAuthentication().getPrincipal();
+        
+        Enseignant enseignant=enseignantinterface.findbyusername(users.getUsername());
 		
-		model.addAttribute("matiereClasse", matiereClasse);
+		List<Matiere> matiereenseignant=matiereinterface.ListeMatiereEnseignant(users.getUsername());
+	
+		model.addAttribute("enseignant",enseignant);
+		model.addAttribute("matiereClasse", matiereenseignant);
 		
 		model.addAttribute("nomclasse",nomClasse);
 		model.addAttribute("libelle", libelle_matiere);
@@ -157,7 +168,7 @@ public class EleveControler {
 			SecurityContext ctx = SecurityContextHolder.getContext();				
             UserDetails d= (UserDetails )ctx.getAuthentication().getPrincipal();
 				System.out.println(d.getUsername());
-				return "visualisationnote";
+				return "AcceuilAdmin";
 		}
 		
 		//etape 1 deja ok!

@@ -59,7 +59,7 @@ public class matiereController {
 	@RequestMapping(value = "/ajoutMatiere")
 	public String addMatiere(@RequestParam(name="libele") String libele,
 			@RequestParam(name="coefficient") int coef,
-			@RequestParam(name="profs")long id,
+			@RequestParam(name="profs")String id,
 			@RequestParam(name="classes")String classe) {
 		
 		Optional<Enseignant> e=ens.findById(id);

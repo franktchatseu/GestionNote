@@ -22,7 +22,7 @@
 			<select name="profs" id="prof">
 				<option selected="selected">Auccun</option>
 				<div th:each="e:${list_enseignant}">
-					<option th:text="${e.idEnseignant}"></option>
+					<option th:text="${e.username}"></option>
 				</div>
 			</select>
 			<label for="classe">Choix de la classes</label>

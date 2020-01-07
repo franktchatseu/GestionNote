@@ -8,6 +8,32 @@
 						th:href="@{css/bootstrap/bootstrap.min.css}"
 	/>
 </head>
+
+ <script type="text/javascript">
+                
+                $(document).ready(function(){
+                        
+                        $('#sequence').on("change", function(){
+                                
+                                //var pays_id = $('#country').val();
+                                
+                                var lien = "http://localhost:8082/matiereclasse";
+                               
+                            $.get(lien, function(data, status){
+                                 // Parcours du json
+                                  /*  var result = $.parseJSON(data);
+                                       $.each( result, function( key, value ) {
+                                           alert(value['regionid']);
+                                       });
+                                       */
+                                       console.log(2);
+                                       alert(data);
+                                 });
+                        })
+                });
+        
+        </script>
+
 <body>
 		<div class="col-md-6 col-md-offset-3" >
 		<div class="panel panel-primary" >

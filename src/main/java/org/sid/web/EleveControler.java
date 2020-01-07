@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class EleveControler {
@@ -259,5 +260,17 @@ public class EleveControler {
 			
 			return "detailnote";
 		}
+		@RequestMapping(value="/notes/matiereclasse")
+		@ResponseBody
+		public List<Matiere> listematiere(Model model) {
+			List<Matiere> listematiere=matiereinterface.findAll();
+			model.addAttribute("matiereclasse",listematiere);
+			for(Matiere matiere:listematiere) {
+				
+				System.out.println(matiere.getLibelle());
+			}
+			return listematiere;
+		}
+		
 		
 }

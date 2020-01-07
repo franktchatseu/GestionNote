@@ -34,22 +34,28 @@
 	
 	<br>
 	
-<table class="table" th:each="liste,status:${listedeliste}" th:unless	="${liste.empty}">
-<thead class="table-header">
-  <tr>
-    <th>Matiere    		</th>
-    <th th:each="el:${liste}" th:text="${el.periode_eval.libelle}"></th>
-   
-    
-    
-  </tr>
-  </thead>
-  <tr >
-  	<td th:text="${listematiere[__${status.index}__].libelle}"></td>
-  	<td  th:each="el:${liste}" th:text="${el.note}"></td>
-  </tr>
-</table>
 
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Matiere</th>
+				<th>Sequence1</th>
+				<th>Sequence2</th>
+				<th>Sequence3</th>
+			</tr>
+		</thead>
+		<tbody th:each="liste,status:${listedeliste}" th:unless	="${liste.empty}">
+			<tr>
+			    <td th:text="${listematiere[__${status.index}__].libelle}"></td>
+  				<td  th:each="el:${liste}"  th:text="${el.note}"></td>
+			   
+    
+  	  
+  			</tr>
+		
+		</tbody>
+	</table>
 
 </body>
 </html>

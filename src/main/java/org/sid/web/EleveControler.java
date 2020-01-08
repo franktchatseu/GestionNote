@@ -130,13 +130,20 @@ public class EleveControler {
 	
 	//vue pour la gestion des notes eleves
 	@RequestMapping(value="/notes",method =RequestMethod.GET)
-	public String notes(Model model,@RequestParam(name="classe",defaultValue = "6e")String nomClasse,@RequestParam(name="matiere",defaultValue="francais")String libelle_matiere,@RequestParam(name="sequence",defaultValue = "sequence 1") String sequence) {
+	public String notes(Model model) {
 		
 
 		//recuperation de la session authentification d'un utilisateur
 		SecurityContext ctx = SecurityContextHolder.getContext();				
         UserDetails users= (UserDetails )ctx.getAuthentication().getPrincipal();
-        
+      //on recupere la liste des classes de cette enseignant
+        List<Classe> listeclasse=classeinterface.listeclasseenseignant(users.getUsername());
+        model.addAttribute("listeclasse", listeclasse);
+        //ici on recupere la liste des matieres par defaud pour la premiere classe
+        //liste des matieres de la classe pour cette enseignant
+		List<Matiere> listematiere=matiereinterface.ListeMatiereClasseEnseignant(listeclasse.get(0).getNom_classe(), users.getUsername());
+		
+		 model.addAttribute("listematieredefaud", listematiere);
         Enseignant enseignant=enseignantinterface.findbyusername(users.getUsername());
 		
 		List<Matiere> matiereenseignant=matiereinterface.ListeMatiereEnseignant(users.getUsername());
@@ -144,11 +151,9 @@ public class EleveControler {
 		model.addAttribute("enseignant",enseignant);
 		model.addAttribute("matiereClasse", matiereenseignant);
 		
-		model.addAttribute("nomclasse",nomClasse);
-		model.addAttribute("libelle", libelle_matiere);
-		model.addAttribute("sequence", sequence);
+	
 		
-			return "acceuil.html";
+			return "acceuil";
 	}
 	//vue pour la gestion des notes eleves
 		@RequestMapping(value="/login")
@@ -168,12 +173,13 @@ public class EleveControler {
 			//recuperation de la session authentification d'un utilisateur
 			SecurityContext ctx = SecurityContextHolder.getContext();				
             UserDetails d= (UserDetails )ctx.getAuthentication().getPrincipal();
-				System.out.println(d.getUsername());
+            
+            
 				return "AcceuilAdmin";
 		}
 		
 		//etape 1 deja ok!
-		@RequestMapping(value="/visuel",method =RequestMethod.GET)
+		@RequestMapping(value="/visuel",method =RequestMethod.POST)
 		public String visuel(Model model,@RequestParam(name="classe")String nomclasse,@RequestParam(name="matiere")String libelle_matiere,@RequestParam(name="sequence")String sequence,@RequestParam(name="eleve",defaultValue = "0")int matricule,@RequestParam(name="aff") String action) {
 			model.addAttribute("nomclasse",nomclasse);
 			model.addAttribute("libelle", libelle_matiere);
@@ -223,7 +229,7 @@ public class EleveControler {
 //				
 //			}
 		
-			return "acceuil";
+			return "redirect:/notes";
 			
 		}
 		@RequestMapping(value ="/updatenote")
@@ -236,10 +242,10 @@ public class EleveControler {
 				evaluationinterface.save(evaluation);
 
 			}
-			return "acceuil.html";
+			return "redirect:/notes";
 		}
 		@RequestMapping(value ="/detailsnote")
-		public String detailsnote(Model model,@RequestParam(name="matricule") long matricule,@RequestParam(name="nom") String nom,String prenom,String nom_tuteur,String classe) {
+		public String detailsnote(Model model,@RequestParam(name="matricule") long matricule) {
 			
 			List<Matiere> listematiere=matiereinterface.ListeMatiereEleve(matricule);
 			List<List<Evaluation>> listedeliste=new ArrayList<List<Evaluation>>();
@@ -251,26 +257,66 @@ public class EleveControler {
 			model.addAttribute("listematiere",listematiere);
 			model.addAttribute("listedeliste",listedeliste);
 			
-			model.addAttribute("matricule", matricule);
-			model.addAttribute("nom", nom);
-			model.addAttribute("prenom", prenom);
-			model.addAttribute("nom_tuteur", nom_tuteur);
-			model.addAttribute("classe", classe);
+			//on recupere eleve
+			Eleve eleve=eleveinterface.findBymatricule(matricule);
+//			model.addAttribute("matricule", matricule);
+//			model.addAttribute("nom", nom);
+//			model.addAttribute("prenom", prenom);
+//			model.addAttribute("nom_tuteur", nom_tuteur);
+//			model.addAttribute("classe", classe);
+			model.addAttribute("eleve",eleve);
 			
 			
 			return "detailnote";
 		}
-		@RequestMapping(value="/notes/matiereclasse")
-		@ResponseBody
-		public List<Matiere> listematiere(Model model) {
-			List<Matiere> listematiere=matiereinterface.findAll();
-			model.addAttribute("matiereclasse",listematiere);
-			for(Matiere matiere:listematiere) {
-				
-				System.out.println(matiere.getLibelle());
-			}
-			return listematiere;
+		
+		//CONTROLEUR POUR AFFICHAGE DES NOTES D'UN ELEVE DEJA ENREGISTRES
+		@RequestMapping(value ="/infonote")
+		public String infonote(Model model,@RequestParam(name="matricule") long matricule,@RequestParam(name="sequence",defaultValue = "")String sequence) {
+			//liste des evaluations de cette eleve
+			List<Evaluation> listeevaluation=evaluationinterface.ListeEvaluationEleveperiode(matricule,sequence);
+			
+			model.addAttribute("listeevaluation",listeevaluation);
+			
+			//on recupere eleve
+			Eleve eleve=eleveinterface.findBymatricule(matricule);
+//			
+			model.addAttribute("sequence",sequence);
+			model.addAttribute("eleve",eleve);
+			
+			
+			
+			return "infonote.html";
 		}
 		
+		
+		
+		@RequestMapping(value="/matiereclasse")
+		@ResponseBody
+		public String[] listematiere(Model model,String classe) {
+			
+
+			//recuperation de la session authentification d'un utilisateur
+			SecurityContext ctx = SecurityContextHolder.getContext();				
+	        UserDetails users= (UserDetails )ctx.getAuthentication().getPrincipal();
+	        //liste des matieres de la classe pour cette enseignant
+			List<Matiere> listematiere=matiereinterface.ListeMatiereClasseEnseignant(classe, users.getUsername());
+			String[] noms=new String[listematiere.size()];
+			
+			int i=0;
+			for(Matiere matiere:listematiere) {
+				noms[i]=matiere.getLibelle();
+				i++;
+				System.out.println(matiere.getLibelle());
+			}
+			model.addAttribute("matiereclasse",listematiere);
+			model.addAttribute("nommatiere",noms);
+			return noms;
+		}
+		
+		
+
+		 
+
 		
 }

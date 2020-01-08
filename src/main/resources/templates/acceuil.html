@@ -8,30 +8,30 @@
 						th:href="@{css/bootstrap/bootstrap.min.css}"
 	/>
 </head>
-
+<script type="text/javascript" src="../static/js/monjavascript/jquery.js"  th:src="@{js/monjavascript/jquery.js}"></script>
  <script type="text/javascript">
                 
-                $(document).ready(function(){
-                        
-                        $('#sequence').on("change", function(){
-                                
-                                //var pays_id = $('#country').val();
-                                
-                                var lien = "http://localhost:8082/matiereclasse";
-                               
-                            $.get(lien, function(data, status){
-                                 // Parcours du json
-                                  /*  var result = $.parseJSON(data);
-                                       $.each( result, function( key, value ) {
-                                           alert(value['regionid']);
-                                       });
-                                       */
-                                       console.log(2);
-                                       alert(data);
-                                 });
-                        })
-                });
-        
+ $(function() {
+
+     $('#classe').change(function() {
+    	 var classe = $('#classe').val();
+       $.get('http://127.0.0.1:8080/matiereclasse?classe='+classe, function(data) {
+
+    	   var $select = $('#matiere');
+    	   $select.find('option').remove();
+    	   var i=0;
+    	   $.each(data,function(){
+    	      $('<option>').val(data[i]).text(data[i]).appendTo($select);
+    	      i++;
+    	   });
+           
+			
+       });    
+
+     });  
+
+   }); 
+      
         </script>
 
 <body>
@@ -52,7 +52,7 @@
 		<div class="panel panel-primary" >
 			<div class="panel-heading ">ENREGISTREMENT ET MODICATION DES NOTES DE VOS ELEVES</div>
 			<div class="panel-body">
-				<form th:action="@{visuel}" method="get">
+				<form th:action="@{visuel}" method="POST">
 			<label for="classe">Selectionner la Sequence</label>
 				<select name="sequence" id="sequence">
 					<option>sequence1</option>
@@ -61,18 +61,15 @@
 				</select>
 				<label for="classe">Selectionner la Classe</label>
 				<select name="classe" id="classe">
-					<option>6e</option>
-					<option>5e</option>
-					<option>4e</option>
-					<option>3e</option>
-					<option>2nd</option>
-					<option>1e</option>
-					<option>Tle</option>
+					<div th:each="c:${listeclasse}">
+						<option th:text="${c.nomClasse}"></option>
+					</div>
 				</select>
 				<label for="matiere">Selectionner la Matiere</label>
 				<select name="matiere" id="matiere" >
-					<option >francais</option>
-					<option >maths</option>
+					<div th:each="c:${listematieredefaud}">
+						<option th:text="${c.libelle}"></option>
+					</div>
 					
 				</select>
 				

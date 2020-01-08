@@ -22,10 +22,11 @@
 		<div class="panel panel-primary" >
 			<div class="panel-heading ">INFO SUR ELEVE</div>
 			<div class="panel-body">
-				     <div ><span>MATRICULE: </span><span  th:text="${matricule}">1255</span></div>
-					<div><span >PRENOM: </span><span  th:text="${prenom}">FRANK</span></div>
-					<div><span>NOM DU TUTEUR: </span><span  th:text="${nom_tuteur}">LOUENKAM</span></div>
-					<div><span >CLASSE:  </span><span  th:text="${classe}">6e</span></div>
+				    <div ><span>MATRICULE: </span><span  th:text="${eleve.matricule}">1255</span></div>
+				    <div><span >NOM: </span><span  th:text="${eleve.nom}">FRANK</span></div>
+					<div><span >PRENOM: </span><span  th:text="${eleve.prenom}">FRANK</span></div>
+					<div><span>NOM DU TUTEUR: </span><span  th:text="${eleve.nom_tuteur}">LOUENKAM</span></div>
+					<div><span >CLASSE:  </span><span  th:text="${eleve.classe.nomClasse}">6e</span></div>
 		
 			</div>
 		</div>
@@ -43,14 +44,16 @@
 				<th>Sequence1</th>
 				<th>Sequence2</th>
 				<th>Sequence3</th>
+				<th>Coef</th>
+				<th>Total</th>
 			</tr>
 		</thead>
 		<tbody th:each="liste,status:${listedeliste}" th:unless	="${liste.empty}">
-			<tr>
+			<tr th:with="someVariable=8">
 			    <td th:text="${listematiere[__${status.index}__].libelle}"></td>
-  				<td  th:each="el:${liste}"  th:text="${el.note}"></td>
-			   
-    
+  				<td  th:each="el:${liste}"  th:text="${el.note}" th:with="someVariable=${someVariable+5}"></td>
+			    <td   th:text="${listematiere[__${status.index}__].coef}"></td>
+    			 <td   th:text="${someVariable}"></td>
   	  
   			</tr>
 		

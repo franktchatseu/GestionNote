@@ -15,4 +15,7 @@ public interface EvaluationInterface extends JpaRepository<Evaluation, Long> {
 	@Query("select eva from Evaluation eva join eva.eleve join eva.matiere where eva.eleve.matricule= :X and eva.matiere.libelle= :Y order by eva.periode_eval.idPeriode asc")
 	public List<Evaluation> ListeEvaluationEleve(@Param("X") long id,@Param("Y") String matiere);
 	
+	//RECUPERATTION DES ELEVALUATION D'UN ELEVE POUR UNE PERIDE EVALUATION
+	@Query("select eva from Evaluation eva join eva.eleve join eva.periode_eval join eva.matiere where eva.eleve.matricule= :X and eva.periode_eval.libelle= :Y")
+	public List<Evaluation> ListeEvaluationEleveperiode(@Param("X") long matricule,@Param("Y") String sequence);
 }

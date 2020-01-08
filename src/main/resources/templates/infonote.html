@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- on insere la librerie pour le moteur de template thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- lorsqu'on utilise le template teamleaf toutes les balises doivent etres fermes -->
+<meta charset="utf-8"/>
+<title>elevee</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet"
+						th:href="@{css/monproprestyle/style.css}"
+	/>
+<script type="text/javascript" src="../static/js/monjavascript/script.js"  th:src="@{js/monjavascript/script.js}"></script>
+
+
+</head>
+<body>
+	<a th:href="@{eleve}">Retour</a>
+	<br>
+	<div class="col-md-6 col-md-offset-1" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">INFO SUR ELEVE</div>
+			<div class="panel-body">
+				     <div ><span>MATRICULE: </span><span  th:text="${eleve.matricule}">1255</span></div>
+				      <div><span >NOM: </span><span  th:text="${eleve.nom}">FRANK</span></div>
+					<div><span >PRENOM: </span><span  th:text="${eleve.prenom}">FRANK</span></div>
+					<div><span>NOM DU TUTEUR: </span><span  th:text="${eleve.nom_tuteur}">LOUENKAM</span></div>
+					<div><span >CLASSE:  </span><span  th:text="${eleve.classe.nomClasse}">6e</span></div>
+		
+			</div>
+		</div>
+		</div>
+		<div class="col-md-3 col-md-offset-1" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">INFO SUR ELEVE</div>
+			<div class="panel-body">
+				<div >
+					<form th:action="@{infonote}" method="get">
+						<label for="sequence">Sequence</label>
+						<select name="sequence">
+							<option>sequence1</option>
+							<option>sequence2</option>
+							<option>sequence3</option>
+							
+						</select>
+						<input type="hidden" th:value="${eleve.matricule}" name="matricule">
+						<button type="submit" class="btn btn-success">Info</button>
+					</form>
+					<br>
+			</div>		     
+			<div class="info">
+					<span>PERIODE EVALUATION:</span><span class="sequence" th:text="${sequence}"></span>
+			</div>
+			</div>
+		</div>
+		</div>
+	
+	<br>
+	
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>MATIERE</th>
+					<th>COEFFICIENT</th>
+					<th>ENSEIGNANT</th>
+					<th>NOTE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${sequence.empty && listeevaluation.empty}">
+					<td>selectionner une periode evaluation</td>
+				</tr>
+				<tr th:if="${listeevaluation.empty && !sequence.empty }">
+					<td>aucune note deja enregistrée pour cette evaluation</td>
+				</tr>
+				<tr th:each="eva:${listeevaluation}">
+					<td th:text="${eva.matiere.libelle}"></td>
+					<td th:text="${eva.matiere.coef}"></td>
+					<td th:text="${eva.matiere.enseignant.nom}"></td>
+					<td th:text="${eva.note}"></td>
+				</tr>
+				
+			</tbody>
+		</table>
+	
+	
+
+
+	
+
+</body>
+</html>

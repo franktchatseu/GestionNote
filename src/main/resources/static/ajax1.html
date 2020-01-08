@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Index</title>
+
+</head>
+
+<body>
+
+<select id="selection">
+
+<option>Content 1</option>
+
+<option>Content 2</option>
+
+        </select>
+
+<div id="replace_div">
+
+Content goes here
+
+</div>
+
+<!-- JQury from Google CDN -->
+
+<script type="text/javascript" src="../static/js/monjavascript/script.js"  th:src="@{js/monjavascript/script.js}"></script>
+
+<script>
+
+		$(document).ready(function () {
+		
+		                //call function when page is loaded                 getContent();
+		
+		//set on change listener
+		
+		$('#selection').change(getContent);
+		
+		function getContent() {
+		
+		      	alert("bonjour");
+		
+		}
+		
+		})
+
+</script>
+
+</body>
+
+</html>

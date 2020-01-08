@@ -10,3 +10,12 @@ span{
 	color:gray;
 	display: in
 }
+.info span{
+	
+	display: inline;
+	margin-left: 0px;
+	font-size: medium;
+}
+.sequence{
+	color: blue;
+}

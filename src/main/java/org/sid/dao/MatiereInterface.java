@@ -18,6 +18,10 @@ public interface MatiereInterface extends JpaRepository<Matiere,Long> {
 	@Query("select m from Matiere m inner join m.enseignant where m.enseignant.username = :X ")
 	public List<Matiere> ListeMatiereEnseignant(@Param("X")String username);
 	
+	//liste des matieres d'une classe et pour un enseignant donnee
+		@Query("select m from Matiere m join m.enseignant ens where m.classe.nomClasse = :X and m.enseignant.username= :Y")
+		public List<Matiere> ListeMatiereClasseEnseignant(@Param("X")String id_classe,@Param("Y")String username);
+	
 	//par ramses
 	//liste des matieres d'une classe
 	@Query("select m from Matiere m where m.classe.nomClasse = :X")

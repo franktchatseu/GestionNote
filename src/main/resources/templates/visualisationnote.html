@@ -32,7 +32,7 @@
 	</div>
 
 	<div class="container">
-	<p>Listre des eleves</p>
+
 	<table class="table">
 	<caption>TABLEAU DES ELEVES</caption>
   <tr>
@@ -47,6 +47,7 @@
     <th></th>
     
   </tr>
+  
   <tr th:each="el:${listEleve}">
     <td th:text="${el.matricule}"></td>
     <td th:text="${el.nom}"></td>
@@ -56,7 +57,9 @@
     <td th:text="${el.sexe}"></td>
     <td th:text="${el.date_naissance}"></td>
     <td th:text="${el.classe.nomClasse}"></td>
-    <td><a th:href="@{detailsnote(matricule=${el.matricule},nom=${el.nom},prenom=${el.prenom},nom_tuteur=${el.nom_tuteur},classe=${el.classe.nomClasse})}">details</a></td>
+    <td><a th:href="@{infonote(matricule=${el.matricule})}">details note</a></td>
+    <td><a th:href="@{detailsnote(matricule=${el.matricule})}">voir bulletin trimestrielle</a></td>
+    
     
     
   </tr>

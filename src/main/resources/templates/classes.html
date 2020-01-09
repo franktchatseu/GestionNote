@@ -6,44 +6,99 @@
 <link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
 						th:href="@{css/bootstrap/bootstrap.min.css}"
 	/>
-	<link type="text/css" rel="stylesheet"  href="css/styles.css"/>
+<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet" th:href="@{css/monproprestyle/style.css}">
+
 </head>
-<body>
-<!-- deffinitrion du conteneur principale de ma page web -->
-	<div class="nav nav-pills">
-<!-- 	definition du conteneur d'enregistrement des enseignents -->
-		<div class="container">
-			<form th:action="@{ajoutClasse}" method="GET">
-				<label for="nom">Nom de la Classe:</label>
-				<input type="text"  placeholder="Entrez un nom" name="noms" id="nom"/>
-				<label for="place">Nombre de place:</label>
-				<input type="text"  placeholder="Entrez un nombre" name="places" id="place"/>
-				<label>Choix du prof titulaire</label>
-				<select name="profs">
-				<option selected="selected">Auccun</option>
+<body class="col-lg-12">
+<header>
+		      <img src="../static/image/logo.png" th:src="@{image/logo.png}" id="logo" alt="logo du site" class="logo">
+		      
+		<nav>
+		<div id="menubar">
+					<ul class="menu">
+						<li class="active">
+						    <a href="">Accueil</a></li>
+						    <li>
+							<a >statisques</a>
+							<ul class="submenu">
+								<li><a th:href="@{statistique}">D'une classe</a></li>
+								<li><a href="">annuelle</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Gestion</a>
+							<ul class="submenu">
+								<li><a th:href="@{gestionPeriodeEvaluation}">periode d'evaluation</a></li>
+								<li><a th:href="@{classes}">classe</a></li>
+								<li><a th:href="@{pageeleve}">eleve</a></li>
+								<li><a th:href="@{enseignant}">enseignant</a></li>
+								<li><a th:href="@{matiere}">matiere</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Détails</a>
+							<ul class="submenu">
+								<li><a th:href="@{eleve}">note d'un eleve</a></li>
+								<li><a href="">bulletin</a></li>
+							</ul>
+						</li>
+						<li><a th:href="@{/login?logout}">Déconnecter</a></li>
+					</ul>
+				</div>
+			</div>
+	      </nav>	      
+		      <div class="textRevealContainer">		        
+		        <div class="textReveal RotateY">
+		         <div>
+		         <div>
+		         	<h1>Gestion des Classes</h1>
+		         </div>
+		      	  </div>
+		        </div>
+		      </div>
+	</header>
+	
+	<section>
+	  <aside>
+	  <div class="panel panel-primary" >
+			<div class="panel-heading ">AJOUT DE ENSEIGNANT</div>
+			<div class="panel-body">
+		<form th:action="@{ajoutClasse}" method="GET" class="form-group">
+				<label class="control-label" for="nom">Nom de la Classe:</label>
+				<input type="text" class="form-control"  placeholder="Entrez un nom" name="noms" id="nom" required/>
+				<label class="control-label" for="place">Nombre de place:</label>
+				<input type="text" class="form-control" placeholder="Entrez un nombre" name="places" id="place" required/>
+				<label class="control-label">Choix du prof titulaire</label>
+				<select name="profs" required class="form-control">
+				<option selected="selected">Aucun</option>
 				<div th:each="e:${list_enseignant}">
 					<option th:text="${e.nom}"></option>
 				</div>
 				</select>
 				
-				<input type="reset" value="Annuler"/>
-				<input type="submit" value="Valider"/>
+				<input type="reset" value="Annuler" class="btn btn-danger"/>
+				<input type="submit" value="Valider" class="btn btn-primary"/>
 			</form>
+	  
+			</div>
 		</div>
+		</div>
+	  	</aside>
+	 <article>
+ 
 <!-- 		definition du conteneur d'affichage des enseignants -->
-		<div class="container">
+		<div>
 <!-- 		definition du conteneur de recherche d'un enseignant -->
-			<div class="recherche">
-				<form th:action="@{classes}" method="post">
-					<label for="rech">Rechercher par nom: </label>
-					<input type="text" placeholder="mot clé" name="rech" id="rech"/>
-					<button>Rechercher</button>			
+			<div>
+				<form th:action="@{classes}" method="post" class="form-group form-inline">
+					<label class="control-label" for="rech">Rechercher par nom: </label>
+					<input type="text" placeholder="entrer un nom" name="rech" id="rech" class="form-control"/>
+					<button class="btn btn-success">Rechercher</button>			
 				</form>
 			</div>
 			
-<!-- 			corps d'affichage des enseignants -->
-			<div class="affichage">
-				<table class="table">
+           <div>
+				<table class="table table-striped">
 				<caption align="top">Liste des Classes:</caption>
 				<thead>
 				<tr>
@@ -59,23 +114,13 @@
 					<td th:text="${c.nomClasse}"></td>
 					<td th:text="${c.nbre_eleve}"></td>
 					<td th:text="${c.prof_titulaire}"></td>
-					<td> <a th:href="@{deleteClasses(id=${c.nomClasse}, rech=${clamotcle}, page=${clapagecourante})}"> Supprimer </a><a href="">Modifier</a> </td>
+					<td> <a th:href="@{deleteClasses(id=${c.nomClasse}, rech=${clamotcle}, page=${clapagecourante})}"> Supprimer </a>
+					<a href="">Modifier</a> </td>
 					
 				</tr>
 				</tbody>
 				
-				<tfoot>
-				<tr>
-					<th>Nom</th>
-					<th>nombre de Place</th>
-					<th>Prof titulaire</th>
-					<th>Supprimer ou Modifier</th>
-				</tr>
-				</tfoot>
-				
-				</table>
-			
-			
+		</table>
 			
 			</div>
 			<div>
@@ -85,11 +130,11 @@
  					</li>
   
 				</ul>
-
 			</div>
+		
 		</div>
-	
-	
-	</div>
-</body>
+ 
+      </article>
+	</section>
+  </body>
 </html>

@@ -49,6 +49,10 @@ public class StatistiqueControler {
 		model.addAttribute("bilandernier", listebilan.get(listebilan.size()-1));
 		model.addAttribute("listeclasse",clas.findAll());
 		model.addAttribute("nombreDadmis",statistique.nombreAdmis(listebilan));
+		
+		//
+		model.addAttribute("classe", classe);
+		model.addAttribute("periode", sequence);
 		return "statistique";
 	}
 }

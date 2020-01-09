@@ -7,6 +7,8 @@
 <link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
 						th:href="@{css/bootstrap/bootstrap.min.css}"
 	/>
+	<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet" th:href="@{css/monproprestyle/style.css}">
+	
 </head>
 <script type="text/javascript" src="../static/js/monjavascript/jquery.js"  th:src="@{js/monjavascript/jquery.js}"></script>
  <script type="text/javascript">
@@ -34,38 +36,66 @@
       
         </script>
 
-<body>
-		<div class="col-md-6 col-md-offset-3" >
-		<div class="panel panel-primary" >
-			<div class="panel-heading ">PROFIL DE ENSEIGNANT</div>
-			<div class="panel-body">
-				NOM:<span th:text="${enseignant.nom}"></span>
-				PRENOM:<span th:text="${enseignant.prenom}"></span>
-				FONCTION: <span th:text="${enseignant.fonction}"></span>697451212
-				NIVEAU: <span th:text="${enseignant.niveau}"></span>
-		
+<body class="col-md-12">
+<header>
+		      <img src="../static/image/logo.png" th:src="@{image/logo.png}" id="logo" alt="logo du site" class="logo">
+		      
+		<nav style="margin-left: 50%; vertical-align: top;">
+		<div class="menubar">
+					<ul class="menu">
+				
+						<li><a th:href="@{/login?logout}">Déconnecter</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		</div>
-			<br>
-		<div class="col-md-8 col-md-offset-3" >
+	      </nav>	      
+		      <div class="textRevealContainer">		        
+		        <div class="textReveal RotateY">
+		         <div>
+		         <div>
+		         	<h1>Espace Enseignant</h1>
+		         </div>
+		      	  </div>
+		        </div>
+		      </div>
+	</header>
+	
+	<section>
+	<article>
+		<div class="bloc-du-milieu col-md-8 panel panel-primary">
+				<div class="col-md-8" >
+				<div class="panel-body">
+			
+				<h4> NOM:  <span th:text="${enseignant.nom}"></span></h4>
+				<h4>PRENOM: <span th:text="${enseignant.prenom}"></span></h4>
+				<h4> FONCTION: <span th:text="${enseignant.fonction}"></span></h4>  
+				<h4>NIVEAU: <span th:text="${enseignant.niveau}"></span></h4>
+			</div>
+			</div>		
+		<div class="col-md-12" >
 		<div class="panel panel-primary" >
 			<div class="panel-heading ">ENREGISTREMENT ET MODICATION DES NOTES DE VOS ELEVES</div>
 			<div class="panel-body">
 				<form th:action="@{visuel}" method="POST">
-			<label for="classe">Selectionner la Sequence</label>
+			   <div class="form-inline">
+			   	<label for="classe">Selectionner la Sequence:</label>
 				<select name="sequence" id="sequence">
 					<div th:each="c:${listeperiode}">
 						<option th:text="${c.libelle}"></option>
 					</div>
-				</select>
-				<label for="classe">Selectionner la Classe</label>
+				</select>				
+			   </div>
+			   <div class="form-inline">
+			   	<label for="classe">Selectionner la Classe:</label>
 				<select name="classe" id="classe">
 					<div th:each="c:${listeclasse}">
 						<option th:text="${c.nomClasse}"></option>
 					</div>
 				</select>
-				<label for="matiere">Selectionner la Matiere</label>
+				
+			   </div>
+			   <div class="form-inline">
+			   	<label for="matiere">Selectionner la Matiere:</label>
 				<select name="matiere" id="matiere" >
 					<div th:each="c:${listematieredefaud}">
 						<option th:text="${c.libelle}"></option>
@@ -73,6 +103,9 @@
 					
 				</select>
 				
+			   </div>
+			   
+			   
 				
 				<button type="submit" class="btn btn-success btn-sm" name="aff" value="ajouter">ajouter</button>
 				<button type="submit" class="btn btn-info btn-sm" name="aff" value="afficher" >modifier</button>
@@ -83,6 +116,11 @@
 			</div>
 		</div>
 		</div>
+		</div>
+	</article>
+	</section>
+			<br>
+		
 			
 		
 		

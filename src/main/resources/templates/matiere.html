@@ -6,64 +6,116 @@
 <link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
 						th:href="@{css/bootstrap/bootstrap.min.css}"
 	/>
+	<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet" th:href="@{css/monproprestyle/style.css}">
 </head>
-<body>
-<!-- conteneur principale -->
-	<div>
-<!-- 	zonne d'ajout des matieres -->
-		<aside>
-		<form th:action="@{ajoutMatiere}" method="get">
-			<label for="libele">Libellé de la matiere:</label>
-			<input type="text"  placeholder="libellé" name="libele" id="libele"/>
-			<label for="coefficient">Coef de la Matiere:</label>
-			<input type="text"  placeholder="coefficient" name="coefficient" id="coefficient"/>
-			<label for="prof">Choix de l'enseignant</label>
+<body class="col-md-12">
+   <header>
+		      <img src="../static/image/logo.png" th:src="@{image/logo.png}" id="logo" alt="logo du site" class="logo">
+		      
+		<nav>
+		<div id="menubar">
+					<ul class="menu">
+						<li class="active">
+						    <a href="">Accueil</a></li>
+						    <li>
+							<a >statisques</a>
+							<ul class="submenu">
+								<li><a th:href="@{statistique}">D'une classe</a></li>
+								<li><a href="">annuelle</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Gestion</a>
+							<ul class="submenu">
+								<li><a th:href="@{gestionPeriodeEvaluation}">periode d'evaluation</a></li>
+								<li><a th:href="@{classes}">classe</a></li>
+									<li><a th:href="@{pageeleve}">eleve</a></li>
+								<li><a th:href="@{enseignant}">enseignant</a></li>
+								<li><a th:href="@{matiere}">matiere</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Détails</a>
+							<ul class="submenu">
+								<li><a th:href="@{eleve}">note d'un eleve</a></li>
+								<li><a href="">bulletin</a></li>
+							</ul>
+						</li>
+						<li><a th:href="@{/login?logout}">Déconnecter</a></li>
+					</ul>
+				</div>
+			</div>
+	      </nav>
+		      <div class="textRevealContainer">		        
+		        <div class="textReveal RotateY">
+		         <div>
+		         <div>
+		         	<h1>Gestion des Matieres</h1>
+		         </div>
+		      	  </div>
+		        </div>
+		      </div>
+	</header>
+	
+<section class="container card-body">
+ <aside>
+ <div class="col-md-12" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">AJOUT DES MATIERE</div>
+			<div class="panel-body">	
+				<form th:action="@{ajoutMatiere}" method="get" class="form-group">
+			<label class="control-label" for="libele">Libellé de la matiere:</label>
+			<input class="form-control" type="text"  placeholder="libellé" name="libele" id="libele"/>
+			<label class="control-label" for="coefficient">Coef de la Matiere:</label>
+			<input class="form-control" type="text"  placeholder="coefficient" name="coefficient" id="coefficient"/>
+			<label class="control-label" for="prof">Choix de l'enseignant</label>
 			
-			<select name="profs" id="prof">
-				<option selected="selected">Auccun</option>
+			<select name="profs" id="prof" class="form-control">
+				<option selected="selected">Aucun</option>
 				<div th:each="e:${list_enseignant}">
 					<option th:text="${e.username}"></option>
 				</div>
 			</select>
-			<label for="classe">Choix de la classes</label>
-			<select name="classes" id="classe">
-				<option selected="selected">Auccun</option>
+			<label class="control-label" for="classe">Choix de la classes</label>
+			<select name="classes" id="classe" class="form-control">
+				<option selected="selected">Aucun</option>
 				<div th:each="c:${list_classe}">
 					<option th:text="${c.nomClasse}"></option>
 				</div>
 			</select>
-			<button type="reset">Annuler</button>
-			<button type="submit">Enregistrer</button>
+			<button type="reset" class="btn btn-danger">Annuler</button>
+			<button type="submit" class="btn btn-primary">Enregistrer</button>
 			</form>
-		</aside>
-<!-- 		gestion du reste du contenu -->
-		<article>
-<!-- 			zonne de filtrage -->
+			</div>
+		</div>
+		</div>
+ </aside>
+ <article>
+ 
+		<div>
 			<div>
-				<form th:action="@{matiere}" method="get">
-					<label for="filtre">Choix de l'Affichage</label>
-					<select name="classes" id="classe">
+				<form th:action="@{matiere}" method="get" class="form-inline">
+					<label class="control-label" for="filtre">Choix de l'Affichage</label>
+					<select name="classes" id="classe" class="form-control">
 						<option selected="selected">Tous</option>
 						<div th:each="c:${list_classe}">
 							<option th:text="${c.nomClasse}"></option>
 						</div>
 					</select>
-					<button type="submit">Filtrer</button>
+					<button type="submit" class="btn btn-info">Filtrer</button>
 				</form>
 			</div>
-<!-- 				zonne de recherche -->
 			<div>
-				<form th:action="@{matiere}" method="get">
-					<label for="rech">Rechercher par Matiere: </label>
-					<input type="text" placeholder="matiere" name="rech" id="rech" th:value="${matmotcle}"/>
-					<button>Rechercher</button>			
+				<form th:action="@{matiere}" method="get" class="form-group form-inline">
+					<label class="control-label" for="rech">Rechercher par Matiere: </label>
+					<input class="form-control" type="text" placeholder="matiere" name="rech" id="rech" th:value="${matmotcle}"/>
+					<button class="btn btn-success">Rechercher</button>			
 				</form>
 			
-				
 			</div>
-<!-- 				zonne d'affichage -->
-			<div>
-				<table class="table">
+			
+			<div>	
+				<table class="table table-striped">
 				<caption align="top">Liste des Classes:</caption>
 				<thead>
 				<tr>
@@ -89,24 +141,16 @@
 				</tr>
 				</tbody>
 				
-				<tfoot>
-				<tr>
-					<th>Id</th>
-					<th>Libelle</th>
-					<th>Coefficient</th>
-					<th>prof de la matiere</th>
-					<th>Classe</th>
-					<th>Supprimer ou Modifier</th>
-				</tr>
-				</tfoot>
-				
 				</table>
 				
 			</div>
+			<div>
 				
-		</article>
-	
-	</div>
-	
+			</div>
+		
+		</div>
+ 
+     </article>
+  </section>
 </body>
 </html>

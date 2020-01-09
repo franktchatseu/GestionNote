@@ -1,21 +1,263 @@
 @charset "utf-8";
 
-span{
-	display:block;
-	margin: 20px;
-	display: inline;
+body
+{
+	width:20%;
+	background-color: white;
 }
-.card-body>div{
-	margin-right: 40px;
-	color:gray;
-	display: in
+header
+{
+	background-color:#000;
+	height: 150px;
 }
-.info span{
+.disconnect
+{
+	vertical-align: top;
+	margin-left:70%;
+}
+#menubar{
+	height: 40px;
+	width: 520px;
+	padding: 5px;
+	background:  rgba(0,0,0,0.5);
+	border-radius: 5px;
+	margin-left: 90%;
+}
+.menubar{
+	height: 40px;
+	padding: 5px;
+	background:  rgba(0,0,0,0.5);
+	border-radius: 5px;
+	margin-left: 250px;
+}
+.menu{
+	list-style-type: none;
+	position: absolute;
+	margin: 0px 0px 0px 0px;
+	margin-left: -40px;
+}
+.menu > li{
+	float: left;
+	padding: 0px 3px 0px 3px;
+}
+.menu > li > a{
+	display: block;
+	width: auto;
+	height: 30px;
+	text-transform: uppercase;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	color: white;
+	font-weight: bold;
+}
+.menu > li.active > a{
+	background: transparent;
+	color: white;
+}
+.menu > li > a:hover{
+	border-radius: 0px;
+	background: gray;
+	color: white;
+}
+.menu > li:hover > .submenu{
+	visibility: visible;
+}
+.submenu{
+	background:  rgba(0,0,0,0.5);
+	list-style-type: none;
+	position: absolute;
+	margin: 1px 0px 0px 0px;
+	min-width: 120px;
+	visibility: hidden;
+	box-shadow: 0px 12px 2px 3px rgba(20, 20, 20, 0.1);
+}
+.submenu > li:nth-child(1){
+	border-top: 5px solid rgb(250, 250, 250);
+}
+.submenu > li{
+	display: block;
+	margin-left: -40px;
+	padding: 3px 10px 3px 10px;
+}
+.submenu > li:hover, .submenu > li.active{
+	background: gray;
+}
+.submenu > li:hover > a, .submenu > li.active > a{
+	color: white;
+}
+.submenu > li > a{
+	font-size: 1.15em;
+	font-weight: bold;
+	color: white;
+}
+a{
+	text-decoration: none;
+}
+
+
+ul
+{
+	list-style: none;
+}
+ li
+{
+	display: inline-block;
+	list-style-type: none ;
+}
+
+li a
+{
+	color:white;
+}
+a:hover
+{
+	color:yellow;
+}
+
+#logo,nav,.disconnect
+{
+	display: inline-block;
+}
+#logo
+{
+	margin:0.5%;
+	width: 15%;
+	height: 80px;
+}
+
+ .textRevealContainer {
+   position:absolute;
+   left: 50%;
+   top: 13%;
+   transform: translate(-50%, -50%);
+   font-family: "Comic Sans MS", cursive, sans-serif;
+   font-size: 1.5em; /*adjust according to your need*/
+   text-align: center; /*in case you write multiline text*/
+}
+.textReveal {
+  overflow: hidden;
+  color:white;
+  animation: textRevealAnim 2s ease 0.5s forwards;
+}
+.textReveal > div {
+  padding: 8px 16px;
+  transform: translateX(100%);
+  border-left: 2px solid red;
+  overflow: hidden;
+  animation: textRevealAnim 2s ease 0.5s forwards,
+    borderOpacityAnim 2s ease 0.5s forwards;
+}
+
+.textReveal > div > div {
+  transform: translateX(-100%);
+  animation: textRevealAnim 2s ease 0.5s forwards;
+}
+@keyframes textRevealAnim {
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes borderOpacityAnim {
+  50% {
+    border-left: 2px solid red;
+  }
+  100% {
+    border-left: 2px solid transparent;
+  }
+}
+
+.textReveal.x50 {
+  transform: translateX(-50%);
+}
+
+.textReveal.x100 {
+  transform: translateX(-100%);
+}
+
+.textReveal.zoom > div {
+  transform: translateX(100%) scale(0.5, 0.5);
+}
+
+.textReveal.rotateY {
+  perspective: 100px; /*adjust according to your need*/
+}
+
+.textReveal.rotateY > div {
+  transform: translateX(100%) rotateY(20deg);
+}
+
+.textReveal.color > div > div {
+  background: linear-gradient(
+    to right,
+    red,
+    red 45%,
+    orange 45%,
+    orange 55%,
+    red 55%,
+    red
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-size: 300%;
+  animation: textRevealAnim 2s ease 0.5s forwards,
+    bgShiftAnim 3s ease 0.5s forwards;
+}
+
+@keyframes bgShiftAnim {
+  to {
+    background-position: 100%;
+  }
+}
+
+
+section
+{
+	width: 100%;
+	height: 70%;
+	display: inline-block;
+	margin-top: 1%;
+}
+
+aside
+{
+	margin-top:2%;
+	width: 30%;
+	height: 60%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+article
+{
+	width: 69%;
+	height: 60%;
+	display: inline-block;
+	margin-top: 2%;
+}
+
+input,button,select
+{
+	margin-bottom: 1%;
+}
+
+.tab
+{
+	width: 70%;
+}
+
+.bloc-du-milieu
+{
+	margin-left:40%;
+	width: 60%;	
+	box-shadow: 0px 12px 2px 3px rgba(20, 20, 20, 0.1);
 	
-	display: inline;
-	margin-left: 0px;
-	font-size: medium;
 }
-.sequence{
-	color: blue;
+.labell span{
+	margin-left:40%;
+	width: 10%;
+	display: inline-block;
 }
+

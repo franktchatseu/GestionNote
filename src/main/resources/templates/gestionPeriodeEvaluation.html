@@ -6,59 +6,122 @@
 <link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
 						th:href="@{css/bootstrap/bootstrap.min.css}"
 	/>
+	<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet"
+						th:href="@{css/monproprestyle/style.css}"
+	/>
 </head>
-<body>
-	<div class="container">
-		<h2>Formulaire d'ajout des periodes d'examens</h2>
+    <body class="col-md-12">
+    <header>
+		      <img src="../static/image/logo.png" th:src="@{image/logo.png}" id="logo" alt="logo du site" class="logo">
+		      
+		<nav>
+		<div id="menubar">
+					<ul class="menu">
+						<li class="active">
+						    <a href="">Accueil</a></li>
+						    <li>
+							<a >statisques</a>
+							<ul class="submenu">
+								<li><a th:href="@{statistique}">D'une classe</a></li>
+								<li><a href="">annuelle</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Gestion</a>
+							<ul class="submenu">
+								<li><a th:href="@{gestionPeriodeEvaluation}">periode d'evaluation</a></li>
+								<li><a th:href="@{classes}">classe</a></li>
+									<li><a th:href="@{pageeleve}">eleve</a></li>
+								<li><a th:href="@{enseignant}">enseignant</a></li>
+								<li><a th:href="@{matiere}">matiere</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Détails</a>
+							<ul class="submenu">
+								<li><a th:href="@{eleve}">note d'un eleve</a></li>
+								<li><a href="">bulletin</a></li>
+							</ul>
+						</li>
+						<li><a th:href="@{/login?logout}">Déconnecter</a></li>
+					</ul>
+				</div>
+			</div>
+	      </nav>
+		      <div class="textRevealContainer">		        
+		        <div class="textReveal RotateY">
+		         <div>
+		         <div>
+		         	<h1>Statistique</h1>
+		         </div>
+		      	  </div>
+		        </div>
+		      </div>
+	</header>
+	 <section class="container card-body">
+ <aside>
+ <div class="col-md-12" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">AJOUT DES PERIODES D'EXAMENS</div>
+			<div class="panel-body">
 		<a th:href="@{gestionPeriodeEvaluation(valide=true)}">Ajouter d'un trimestre?</a>
 		<form th:action="@{ajoutT}">
-			<div th:if="${valide}" class="container">
-					<label for="tr">nom du trimestre:</label>
-					<input type="text" name="trimestre" id="tr"/>
-					<button type="reset"><a th:href="@{gestionPeriodeEvaluation(valide=false)}" style="text-decoration: none;">Fini</a></button>
-					<button type="submit">Valider</button>
+			<div th:if="${valide}">
+			<div class="form-inline">
+				<label for="tr">nom du trimestre:</label>
+					<input type="text" class="form-control" name="trimestre" id="tr"/>
+					
+			</div>
+					<button type="reset" class="btn btn-danger"><a th:href="@{gestionPeriodeEvaluation(valide=false)}" style="text-decoration: none;">Fini</a></button>
+					<button type="submit" class="btn btn-primary">Valider</button>
 			</div>
 		</form>
 		
-		<form th:action="@{ajoutSequence}" method="get">
+		<form th:action="@{ajoutSequence}" method="get" class="form-group">
 			
-			<select name="idTrimestre">
+			<select name="idTrimestre" class="form-control">
 					<div th:each="t:${listeTrimestre}" class="container">
 						<option th:text="${t.libelle}"></option>
 					</div>
 			</select>
 			<label for="periode">Libele de la periode:</label>
-			<input type="text" name="nomPeriode" id="p"/>
+			<input type="text" class="form-control" name="nomPeriode" id="p"/>
 			<label for="debut">Date de debut:</label>
-			<input type="date" name="debut" id="debut"/>
+			<input type="date" class="form-control" name="debut" id="debut"/>
 			<label for="fin">Date de fin: </label>
-			<input type="date" name="fin" id="fin"/>
-			<button type="reset">Annuler</button>
-			<button type="submit">Valider</button>
+			<input type="date" class="form-control" name="fin" id="fin"/>
+			<button type="reset" class="btn btn-danger">Annuler</button>
+			<button type="submit" class="btn btn-primary">Valider</button>
 		</form>
-	</div>
-<!-- 	affichage et recherche des sequences -->
-	<div class="container">
-<!-- 		recherche -->
-		<div class="container">
-			<form th:action="@{gestionPeriodeEvaluation}" method="get">
+			</div>
+		</div>
+		</div>
+ </aside>
+ <article>
+ 
+		<div>
+			<div>
+				<form th:action="@{gestionPeriodeEvaluation}" method="get" class="form-inline">
 				<label for="filtre">Filtre:</label>
-				<select name="filtre">
+				<select name="filtre" class="form-control">
 					<div th:each="t:${listeTrimestre}">
 						<option th:text="${t.libelle}"></option>
 					</div>
 				</select>
-				<button type="submit">Filtrer</button>
+				<button type="submit" class="btn btn-success">Filtrer</button>
 			</form>
-			<form th:action="@{gestionPeriodeEvaluation}" method="get">
+				
+			</div>
+			
+			<div>
+			  <form th:action="@{gestionPeriodeEvaluation}" method="get" class="form-inline">
 				<label for="rech">periode a rechercher:</label>
-				<input type="text" name="rech" id="rech"/>
-				<button type="submit">Valider</button>
-			</form>
-		</div>
-<!-- 		affichage des elements enregistrer -->
-		<div class="container">
-			<table class="table">
+				<input type="text" name="rech" id="rech" class="form-control"/>
+				<button type="submit" class="btn btn-success">Rechercher</button>
+			</form>	
+			</div>
+			<div>
+			  <table class="table table-striped">
 				<caption> Liste des periodes D'examen</caption>
 				<thead>
 					<tr>
@@ -82,6 +145,22 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
+		
+		</div>
+ 
+     </article>
+  </section>
+	<div class="container">
+		
+	</div>
+	<div class="container">
+		<div class="container">
+			
+		</div>
+<!-- 		affichage des elements enregistrer -->
+		<div class="container">
+			
 		</div>
 	</div>
 </body>

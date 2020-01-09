@@ -41,8 +41,59 @@
 
 
 </head>
-<body>
-	<form th:action="@{statistique}" method="get">
+<body class="col-md-12">
+    <header>
+		      <img src="../static/image/logo.png" th:src="@{image/logo.png}" id="logo" alt="logo du site" class="logo">
+		      
+		<nav>
+		<div id="menubar">
+					<ul class="menu">
+						<li class="active">
+						    <a href="">Accueil</a></li>
+						    <li>
+							<a >statisques</a>
+							<ul class="submenu">
+								<li><a th:href="@{statistique}">D'une classe</a></li>
+								<li><a href="">annuelle</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Gestion</a>
+							<ul class="submenu">
+								<li><a th:href="@{gestionPeriodeEvaluation}">periode d'evaluation</a></li>
+								<li><a th:href="@{classes}">classe</a></li>
+								<li><a th:href="@{pageeleve}">eleve</a></li>
+								<li><a th:href="@{enseignant}">enseignant</a></li>
+								<li><a th:href="@{matiere}">matiere</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="">Détails</a>
+							<ul class="submenu">
+								<li><a th:href="@{eleve}">note d'un eleve</a></li>
+								<li><a href="">bulletin</a></li>
+							</ul>
+						</li>
+						<li><a th:href="@{login}">Déconnecter</a></li>
+					</ul>
+				</div>
+			</div>
+	      </nav>
+		      <div class="textRevealContainer">		        
+		        <div class="textReveal RotateY">
+		         <div>
+		         <div>
+		         	<h1>Statistique</h1>
+		         </div>
+		      	  </div>
+		        </div>
+		      </div>
+	</header>
+	<section>
+			<article>
+				<div class="container panel panel-primary" style="margin-left: 5%;">
+					
+	<form th:action="@{statistique}" method="get" class="form-inline">
 		<label>Choix de la classe</label>
 		<select name="classe">
 			<div th:each="p:${listeclasse}">
@@ -50,6 +101,7 @@
 			</div>
 		</select>
 		
+		<label>Choix du Trimestre</label>
 		<label>Choix du Trimestre</label>
 		<select name="trimestre" id="trimestre">
 			<div th:each="p:${listetrimestre}">
@@ -64,11 +116,14 @@
 			</div>
 		
 		</select>
-		<button type="submit">Afficher</button>
+		<button type="submit" class="btn btn-success">Afficher</button>
 	</form>
-	
+	<div class="labell">
+		<span><label>Classe:</label><h4 th:text="${classe}"></h4></span>
+		<span><label>Periode:</label><h4 th:text="${periode}"></h4></span>
+	</div>
 
-	<table class="table">
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Rang</th>
@@ -85,10 +140,10 @@
 				<td th:text="${p.mention}"></td>
 			</tr>
 			<tr>
-				<th colspan="4">Statistique générale</th>
+				<th colspan="4"><h4 style="margin-left: 40%;">Statistique générale</h4></th>
 			</tr>
 				<tr>
-					<th colspan="4" th:text="${profTitulaire}"></th>
+					<th colspan="4"><h4 th:text="${profTitulaire}" style="margin-left: 40%;"></h4></th>
 				</tr>
 			<tr>
 				<th>Moyenne Generale</th>
@@ -106,5 +161,9 @@
 		</tbody>
 	</table>
 
+					
+				</div>
+			</article>
+	</section>
 </body>
 </html>

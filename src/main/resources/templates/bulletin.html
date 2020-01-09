@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- on insere la librerie pour le moteur de template thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- lorsqu'on utilise le template teamleaf toutes les balises doivent etres fermes -->
+<meta charset="utf-8"/>
+<title>elevee</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet"
+						th:href="@{css/monproprestyle/style.css}"
+	/>
+<script type="text/javascript" src="../static/js/monjavascript/script.js"  th:src="@{js/monjavascript/script.js}"></script>
+
+
+</head>
+<body>
+
+	
+	<div class="col-md-6 col-md-offset-3" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">INFO SUR ELEVE</div>
+			<div class="panel-body">
+				    <div ><span>MATRICULE: </span><span  th:text="${eleve.matricule}">1255</span></div>
+				    <div><span >NOM: </span><span  th:text="${eleve.nom}">FRANK</span></div>
+					<div><span >PRENOM: </span><span  th:text="${eleve.prenom}">FRANK</span></div>
+					<div><span>NOM DU TUTEUR: </span><span  th:text="${eleve.nom_tuteur}">LOUENKAM</span></div>
+					<div><span >CLASSE:  </span><span  th:text="${eleve.classe.nomClasse}">6e</span></div>
+		
+			</div>
+		</div>
+		</div>
+		<div class="col-md-6 col-md-offset-3" >
+		<div class="panel panel-primary" >
+			<div class="panel-heading ">AUTRE</div>
+			<div class="panel-body">
+				    <div ><span>Trimestre: </span><span  th:text="${trimestre}">1255</span></div>
+				    <div><span >Classe: </span><span  th:text="${classe.nomClasse}">FRANK</span></div>
+					<div><span >Professeur Titulaire: </span><span  th:text="${classe.prof_titulaire}">FRANK</span></div>
+					<div><span>Date : </span><span  th:text="${datejour}">LOUENKAM</span></div>
+		
+			</div>
+		</div>
+		</div>
+		
+	
+	<br>
+	
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Matiere</th>
+				<th th:each="periode:${bulletin.listeperiode}" th:text="${periode.libelle}">defauld</th>
+				
+				<th>Coef</th>
+				<th>Note trimestre</th>
+				<th>Mention</th>
+				<th>Nom enseignant</th>
+				
+			</tr>
+		</thead>
+		<tbody >
+			<tr th:each="tuple:${bulletin.listebulletin}">
+				<td th:text="${tuple.matiere}"></td>
+				<td th:each="note:${tuple.listeevaluation}" th:text="${note.note}"></td>
+				<td th:text="${tuple.coef}"></td>
+				<td th:text="${tuple.note_final}"></td>
+				<td th:text="${tuple.mention}"></td>
+				<td th:text="${tuple.prof_matiere}"></td>
+			</tr>
+			
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>Moyennes</th>
+				<th th:each="moy:${bulletin.listemoyenne}" th:text="${moy}"></th>
+				<th th:text="${bulletin.totalcoef}"></th>
+				<th th:text="${bulletin.moyennefinale}"></th>
+				<th th:text="${bulletin.mention}"></th>
+				<th>/</th>
+			</tr>
+			<tr>
+				<th>Rang</th>
+				<th>/</th>
+				<th>Decision:</th>
+				<th  colspan="2" th:text="${bulletin.decision}"></th>
+			</tr>
+		</tfoot>
+	</table>
+	
+
+</body>
+</html>

@@ -5,6 +5,9 @@ package org.sid;
 import java.sql.Date;
 import java.util.List;
 
+import org.sid.bulletin.Bulletin;
+import org.sid.bulletin.BulletinImpl;
+import org.sid.bulletin.TupleBulletin;
 import org.sid.dao.ClasseInterface;
 import org.sid.dao.EleveInterface;
 import org.sid.dao.EnseignantInterface;
@@ -32,9 +35,19 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class GestionNoteApplication {
 
+	public static EleveInterface eleveinterface;
+	public static MatiereInterface matiereinterface;
+	public static EvaluationInterface evaluationinterface;
+	public static ClasseInterface classeinterface;
+	public static EnseignantInterface enseignantinterface;
+	public static TrimestreInterface trimestreinterface;
+	public static PeriodeInterface periodeinterface;
+	public static RoleRepository rolerepository;
+	
 	public static void main(String[] args) {
 	
 	 ApplicationContext ctx= SpringApplication.run(GestionNoteApplication.class, args);
+	 
 //	 InterfaceProduit interfaceproduit=ctx.getBean(InterfaceProduit.class);
 //	 interfaceproduit.save(new Produit("core i7", 10000, 10));
 //	 interfaceproduit.save(new Produit("dual core", 500000, 10));
@@ -43,14 +56,13 @@ public class GestionNoteApplication {
 //	 for (Produit produit : liste) {
 //		 System.out.println(produit.getNom_prod());
 //	}
-	 EleveInterface eleveinterface=ctx.getBean(EleveInterface.class);
-	 MatiereInterface matiereinterface=ctx.getBean(MatiereInterface.class);
-	 EvaluationInterface evaluationinterface=ctx.getBean(EvaluationInterface.class);
-	 ClasseInterface classeinterface = ctx.getBean(ClasseInterface.class);
-	 EnseignantInterface enseignantinterface=ctx.getBean(EnseignantInterface.class);
-	 TrimestreInterface trimestreinterface=ctx.getBean(TrimestreInterface.class);
-	 PeriodeInterface periodeinterface=ctx.getBean(PeriodeInterface.class);
-	 RoleRepository rolerepository=ctx.getBean(RoleRepository.class);
+	  eleveinterface=ctx.getBean(EleveInterface.class);
+	  matiereinterface=ctx.getBean(MatiereInterface.class);
+	  evaluationinterface=ctx.getBean(EvaluationInterface.class);
+	  classeinterface = ctx.getBean(ClasseInterface.class);
+	trimestreinterface=ctx.getBean(TrimestreInterface.class);
+	 periodeinterface=ctx.getBean(PeriodeInterface.class);
+	  rolerepository=ctx.getBean(RoleRepository.class);
 	// eleveinterface.save(new Eleve("tchatseu","louenkam","04/14/2000", 'M', "louenkam edouard","690083767","edlouenk@gmail.com",classeinterface.findBynomClassee("6e")));
 //	 //insertion des trimestre
 //	 trimestreinterface.save(new Trimestre("trimestre 1"));
@@ -97,7 +109,11 @@ public class GestionNoteApplication {
 //		 
 //		 System.out.println("matricule:"+bilan.getMatricule()+"\t  moyenne:"+bilan.getMoyenne());
 //	 }
-	 
+	 BulletinImpl bull=new BulletinImpl();
+	 Trimestre tr=trimestreinterface.findBylibelle("trimestre1");
+	Bulletin bul= bull.construirebulletin(1, "6e",tr);
+	// System.out.println(bull.getmoyenneelevesequence(1, "sequence1"));
+	 //TupleBulletin tuewple=bull.tupleeleve(1, matiereinterface.findByidMatiere(1L));
 	}
 
 }

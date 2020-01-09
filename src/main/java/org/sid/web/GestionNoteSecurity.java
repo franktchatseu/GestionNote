@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled=true)
+
 public class GestionNoteSecurity extends WebSecurityConfigurerAdapter {
 
 
@@ -48,7 +48,8 @@ public class GestionNoteSecurity extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 				.antMatchers(	"/eleve","/delete","/css/**","/visuel","/detailsnote","/save","/image/**").permitAll()
-				.antMatchers("/visuel").hasRole("ADMIN")
+				.antMatchers("/notes").hasRole("USER")
+				.antMatchers("/eleve","classes","/matiere","/gestionPeriodeEvaluation","/pageeleve","/enseignant").hasRole("ADMIN")
 			.anyRequest()
 				.authenticated()
 					.and();

@@ -16,50 +16,34 @@
 
 </head>
 <body>
-	<a th:href="@{eleve}">Retour</a>
-	<br>
-	<div class="col-md-6 col-md-offset-1" >
-		<div class="panel panel-primary" >
-			<div class="panel-heading ">INFO SUR ELEVE</div>
-			<div class="panel-body">
-				     <div ><span>MATRICULE: </span><span  th:text="${eleve.matricule}">1255</span></div>
-				      <div><span >NOM: </span><span  th:text="${eleve.nom}">FRANK</span></div>
-					<div><span >PRENOM: </span><span  th:text="${eleve.prenom}">FRANK</span></div>
-					<div><span>NOM DU TUTEUR: </span><span  th:text="${eleve.nom_tuteur}">LOUENKAM</span></div>
-					<div><span >CLASSE:  </span><span  th:text="${eleve.classe.nomClasse}">6e</span></div>
+	<section>
+			<article>
+					<div class="container panel panel-primary col-md-offset-2">
+						
+        		     <h4>MATRICULE: <span  th:text="${eleve.matricule}"></span></h4>
+					<h4>NOM: <span  th:text="${eleve.nom}"></span></h4>
+					<h4>PRENOM: <span  th:text="${eleve.prenom}"></span></h4>
+					<h4>NOM DU TUTEUR: <span  th:text="${eleve.nom_tuteur}"></span></h4>
+					<h4>CLASSE:  <span  th:text="${eleve.classe.nomClasse}"></span></h4>
 		
-			</div>
-		</div>
-		</div>
-		<div class="col-md-3 col-md-offset-1" >
-		<div class="panel panel-primary" >
-			<div class="panel-heading ">INFO SUR ELEVE</div>
-			<div class="panel-body">
-				<div >
-					<form th:action="@{infonote}" method="get">
-						<label for="sequence">Sequence</label>
-						<select name="sequence">
+				<div class="container col-md-offset-3">
+					<form th:action="@{infonote}" method="get" class="form-inline">
+						<label for="sequence">Sequence: </label>
+						<select name="sequence" class="form-control">
 							<option>sequence1</option>
 							<option>sequence2</option>
 							<option>sequence3</option>
 							
 						</select>
 						<input type="hidden" th:value="${eleve.matricule}" name="matricule">
-						<button type="submit" class="btn btn-success">Info</button>
+						<button type="submit" class="btn btn-info">Info</button>
 					</form>
-					<br>
 			</div>		     
 			<div class="info">
-					<span>PERIODE EVALUATION:</span><span class="sequence" th:text="${sequence}"></span>
+					<h4>PERIODE EVALUATION: <span class="sequence" th:text="${sequence}"></span> </h4>
 			</div>
-			</div>
-		</div>
-		</div>
 	
-	<br>
-	
-		
-		<table class="table">
+		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>MATIERE</th>
@@ -84,11 +68,9 @@
 				
 			</tbody>
 		</table>
-	
-	
-
-
-	
-
+							
+					</div>
+			</article>
+	</section>	
 </body>
 </html>

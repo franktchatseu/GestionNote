@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- on insere la librerie pour le moteur de template thymeleaf -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- lorsqu'on utilise le template teamleaf toutes les balises doivent etres fermes -->
+<meta charset="utf-8"/>
+<title>statisque d'une classe</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+<link type="text/css" href="../static/css/monproprestyle/style.css" rel="stylesheet"
+						th:href="@{css/monproprestyle/style.css}"
+	/>
+<script type="text/javascript" src="../static/js/monjavascript/script.js"  th:src="@{js/monjavascript/script.js}"></script>
+
+<script type="text/javascript" src="../static/js/monjavascript/jquery.js"  th:src="@{js/monjavascript/jquery.js}"></script>
+ <script type="text/javascript">
+                
+ $(function() {
+
+     $('#trimestre').change(function() {
+    	 var trimestre = $('#trimestre').val();
+       $.get('http://127.0.0.1:8080/periodetrimestre?trimestre='+trimestre, function(data) {
+
+    	   var $select = $('#sequence');
+    	   $select.find('option').remove();
+    	   var i=0;
+    	   $.each(data,function(){
+    	      $('<option>').val(data[i]).text(data[i]).appendTo($select);
+    	      i++;
+    	   });
+           
+			
+       });    
+
+     });  
+
+   }); 
+      
+        </script>
+
+
+</head>
+<body>
+	<form th:action="@{statistique}" method="get">
+		<label>Choix de la classe</label>
+		<select name="classe">
+			<div th:each="p:${listeclasse}">
+				<option th:text="${p.nomClasse}"></option>
+			</div>
+		</select>
+		
+		<label>Choix du Trimestre</label>
+		<select name="trimestre" id="trimestre">
+			<div th:each="p:${listetrimestre}">
+				<option th:text="${p.libelle}"></option>
+			</div>
+		</select>
+		
+		<label>Choix de la Periode</label>
+		<select name="sequence" id="sequence">
+			<div th:each="p:${listeperiode}">
+				<option th:text="${p.libelle}"></option>
+			</div>
+		
+		</select>
+		<button type="submit">Afficher</button>
+	</form>
+	
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Rang</th>
+				<th>Nom et Prenom</th>
+				<th>Moyenne</th>
+				<th>Mention</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="p:${listebilan}">
+				<td th:text="${p.rang}"></td>
+				<td th:text="${p.nom}"></td>
+				<td th:text="${p.moyenne}"></td>
+				<td th:text="${p.mention}"></td>
+			</tr>
+			<tr>
+				<th colspan="4">Statistique générale</th>
+			</tr>
+				<tr>
+					<th colspan="4" th:text="${profTitulaire}"></th>
+				</tr>
+			<tr>
+				<th>Moyenne Generale</th>
+				<th>Nombre d'admis</th>
+				<th>Moyenne Premier</th>
+				<th>Moyenne dernier</th>
+			</tr>
+			<tr>
+				<td th:text="${moyennegenerale}"></td>
+				<td th:text="${nombreDadmis}"></td>
+				<td th:text="${bilanpremier.moyenne}"></td>
+				<td th:text="${bilandernier.moyenne}"></td>
+			</tr>
+		
+		</tbody>
+	</table>
+
+</body>
+</html>

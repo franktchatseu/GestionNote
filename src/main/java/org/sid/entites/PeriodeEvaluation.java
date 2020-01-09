@@ -34,6 +34,18 @@ public class PeriodeEvaluation {
 	
 	
 	
+	public long getIdPeriode() {
+		return idPeriode;
+	}
+
+
+
+	public void setIdPeriode(long idPeriode) {
+		this.idPeriode = idPeriode;
+	}
+
+
+
 	public PeriodeEvaluation(String libelle, Date date_debut, Date date_fin,Boolean statut, Trimestre trimestre) {
 		super();
 		this.libelle = libelle;
@@ -45,27 +57,36 @@ public class PeriodeEvaluation {
 
 
 
-	public long getId_periode() {
-		return idPeriode;
-	}
-	public void setId_periode(long id_periode) {
-		this.idPeriode = id_periode;
-	}
 	public String getLibelle() {
 		return libelle;
 	}
+
+
+
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+
+
+
 	public Date getDate_debut() {
 		return Date_debut;
 	}
+
+
+
 	public void setDate_debut(Date date_debut) {
 		Date_debut = date_debut;
 	}
+
+
+
 	public Date getDate_fin() {
 		return date_fin;
 	}
+
+
+
 	public void setDate_fin(Date date_fin) {
 		this.date_fin = date_fin;
 	}
@@ -93,5 +114,12 @@ public class PeriodeEvaluation {
 	public void setTrimestre(Trimestre trimestre) {
 		this.trimestre = trimestre;
 	}
+
+
+
+	
+
+
+
 	
 }

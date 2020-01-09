@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TrimestreInterface extends JpaRepository<Trimestre, Long>{
 		public Trimestre findByidTrimestre(Long id);
+		public Trimestre findBylibelle(String libelle);
 }

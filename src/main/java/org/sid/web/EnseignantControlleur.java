@@ -3,6 +3,8 @@ package org.sid.web;
 import java.util.List;
 
 import org.sid.dao.EnseignantInterface;
+import org.sid.dao.RoleRepository;
+import org.sid.dao.UsersRepository;
 import org.sid.dao.UsersRolesRepository;
 import org.sid.entites.Enseignant;
 import org.sid.entites.Roles;
@@ -35,6 +37,9 @@ public class EnseignantControlleur {
 			private EnseignantInterface enseignantType;
 			@Autowired
 			private UsersRolesRepository usersrole;
+			@Autowired
+			private RoleRepository roleinterface;
+			private UsersRepository usersinterface;
 			
 			//methodes de renvoie des enseignants
 			@RequestMapping(value = "/enseignant")
@@ -72,8 +77,8 @@ public class EnseignantControlleur {
 				//insertion de enseignants
 				Enseignant e = new Enseignant(username,password,nom, prenom, cni, fonction, niveau);
 				enseignantType.save(e);
-				
-				
+				//attribution du role USER a cette enseignant
+				usersrole.save(new UsersRoles(e, new Roles("ADMIN","NA PAS TOUT LES DROITS")));
 				//message pour la notification d'enregistrement
 				return "redirect:/enseignant";
 			}

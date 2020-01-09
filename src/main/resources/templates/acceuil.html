@@ -55,9 +55,9 @@
 				<form th:action="@{visuel}" method="POST">
 			<label for="classe">Selectionner la Sequence</label>
 				<select name="sequence" id="sequence">
-					<option>sequence1</option>
-					<option>sequence2</option>
-					<option>sequence3</option>
+					<div th:each="c:${listeperiode}">
+						<option th:text="${c.libelle}"></option>
+					</div>
 				</select>
 				<label for="classe">Selectionner la Classe</label>
 				<select name="classe" id="classe">

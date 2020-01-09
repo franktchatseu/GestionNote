@@ -67,7 +67,7 @@
 				<caption align="top">Liste des Classes:</caption>
 				<thead>
 				<tr>
-<!-- 					<th>Id</th> -->
+					<th>Id</th>
 					<th>Libelle</th>
 					<th>Coefficient</th>
 					<th>prof de la matiere</th>
@@ -78,20 +78,20 @@
 				
 				<tbody>
 				<tr th:each="m:${malistMatiere}">
-<!-- 					<td th:text="${m.id_matiere}"></td> -->
+					<td th:text="${m.idMatiere}"></td>
 					<td th:text="${m.libelle}"></td>
 					<td th:text="${m.coef}"></td>
-<!--  					<td th:text="${m.enseignant.nom}"></td>-->
-<!-- 					<td th:text="${m.classe.nomClasse}"></td>-->
+ 					<td th:text="${m.enseignant.nom}"></td>
+					<td th:text="${m.classe.nomClasse}"></td>
 					
-<!-- 					<td> <a th:href="@{deleteMatiere(id=${c.idMatiere}, rech=${matmotcle}, page=${matpagecourante})}"> Supprimer </a><a href="">Modifier</a> </td> -->
+					<td> <a th:href="@{deleteMatiere(id=${m.idMatiere}, rech=${matmotcle}, page=${matpagecourante})}"> Supprimer </a><a href="">Modifier</a> </td>
 					
 				</tr>
 				</tbody>
 				
 				<tfoot>
 				<tr>
-<!-- 					<th>Id</th> -->
+					<th>Id</th>
 					<th>Libelle</th>
 					<th>Coefficient</th>
 					<th>prof de la matiere</th>

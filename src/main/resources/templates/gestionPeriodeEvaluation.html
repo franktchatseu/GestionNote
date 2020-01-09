@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Gestion des periodes d'evaluation</title>
+<link type="text/css" href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+						th:href="@{css/bootstrap/bootstrap.min.css}"
+	/>
+</head>
+<body>
+	<div class="container">
+		<h2>Formulaire d'ajout des periodes d'examens</h2>
+		<a th:href="@{gestionPeriodeEvaluation(valide=true)}">Ajouter d'un trimestre?</a>
+		<form th:action="@{ajoutT}">
+			<div th:if="${valide}" class="container">
+					<label for="tr">nom du trimestre:</label>
+					<input type="text" name="trimestre" id="tr"/>
+					<button type="reset"><a th:href="@{gestionPeriodeEvaluation(valide=false)}" style="text-decoration: none;">Fini</a></button>
+					<button type="submit">Valider</button>
+			</div>
+		</form>
+		
+		<form th:action="@{ajoutSequence}" method="get">
+			
+			<select name="idTrimestre">
+					<div th:each="t:${listeTrimestre}" class="container">
+						<option th:text="${t.libelle}"></option>
+					</div>
+			</select>
+			<label for="periode">Libele de la periode:</label>
+			<input type="text" name="nomPeriode" id="p"/>
+			<label for="debut">Date de debut:</label>
+			<input type="date" name="debut" id="debut"/>
+			<label for="fin">Date de fin: </label>
+			<input type="date" name="fin" id="fin"/>
+			<button type="reset">Annuler</button>
+			<button type="submit">Valider</button>
+		</form>
+	</div>
+<!-- 	affichage et recherche des sequences -->
+	<div class="container">
+<!-- 		recherche -->
+		<div class="container">
+			<form th:action="@{gestionPeriodeEvaluation}" method="get">
+				<label for="filtre">Filtre:</label>
+				<select name="filtre">
+					<div th:each="t:${listeTrimestre}">
+						<option th:text="${t.libelle}"></option>
+					</div>
+				</select>
+				<button type="submit">Filtrer</button>
+			</form>
+			<form th:action="@{gestionPeriodeEvaluation}" method="get">
+				<label for="rech">periode a rechercher:</label>
+				<input type="text" name="rech" id="rech"/>
+				<button type="submit">Valider</button>
+			</form>
+		</div>
+<!-- 		affichage des elements enregistrer -->
+		<div class="container">
+			<table class="table">
+				<caption> Liste des periodes D'examen</caption>
+				<thead>
+					<tr>
+						<th>Trimestre</th>
+						<th>periode d'examen</th>
+						<th>Date debut</th>
+						<th>Date fin</th>
+						<th>Ouverture</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="p:${listePeriode}">
+						<td th:text="${p.trimestre.libelle}"></td>
+						<td th:text="${p.libelle}"></td>
+						<td th:text="${p.Date_debut}"></td>
+						<td th:text="${p.Date_fin}"></td>
+						<td>
+							<label th:if="!${p.statut}")><a th:href="@{ouvrir(id=${p.idPeriode})}">Ouvrir</a></label>
+							<label th:if="${p.statut}"><a th:href="@{fermer(id=${p.idPeriode})}">Fermer</a></label>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

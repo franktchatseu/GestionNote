@@ -148,6 +148,10 @@ public class EleveControler {
 		
 		List<Matiere> matiereenseignant=matiereinterface.ListeMatiereEnseignant(users.getUsername());
 	
+		//recuperation des periodes evaluations deja ouvert
+		List<PeriodeEvaluation> listeperiode=periodeinterface.periodeouvert();
+		
+		model.addAttribute("listeperiode", listeperiode);
 		model.addAttribute("enseignant",enseignant);
 		model.addAttribute("matiereClasse", matiereenseignant);
 		
@@ -196,7 +200,9 @@ public class EleveControler {
 						eval.setPeriode_eval(periodeinterface.findBylibelle(sequence));
 						evaluation.addEvaluation(eval);
 					}
-			
+					
+					model.addAttribute("classe", nomclasse);
+					model.addAttribute("matiere", libelle_matiere);
 				model.addAttribute("form",evaluation);
 				model.addAttribute("liste_evaluation",evaluation.getListe_evaluation());
 				model.addAttribute("liste_eleve",liste_eleve);
@@ -207,6 +213,8 @@ public class EleveControler {
 				evaluation.setListe_evaluation(evaluationinterface.ListeEvaluation(nomclasse, libelle_matiere,sequence));
 				//List<Evaluation> liste_evaluation=evaluationinterface.ListeEvaluation(nomclasse, libelle_matiere,sequence);
 				//model.addAttribute("liste_evaluation",liste_evaluation);
+				model.addAttribute("classe", nomclasse);
+				model.addAttribute("matiere", libelle_matiere);
 				model.addAttribute("form",evaluation);
 				model.addAttribute("liste_evaluation",evaluation.getListe_evaluation());
 				return "updatenote";

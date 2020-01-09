@@ -14,6 +14,7 @@ import org.sid.dao.MatiereInterface;
 import org.sid.dao.PeriodeInterface;
 import org.sid.dao.RoleRepository;
 import org.sid.dao.TrimestreInterface;
+import org.sid.entites.BilanNote;
 import org.sid.entites.Classe;
 import org.sid.entites.Eleve;
 import org.sid.entites.Enseignant;
@@ -22,6 +23,7 @@ import org.sid.entites.Matiere;
 import org.sid.entites.PeriodeEvaluation;
 import org.sid.entites.Produit;
 import org.sid.entites.Roles;
+import org.sid.entites.StatistiqueImpl;
 import org.sid.entites.Trimestre;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -86,9 +88,14 @@ public class GestionNoteApplication {
 //		evaluationinterface.save(new Evaluation(20, eleveinterface.findBymatricule(1L),matiereinterface.findByidMatiere(5L),periodeinterface.findByidPeriode(1L)));
 //		evaluationinterface.ListeEvaluation("6e","francais","sequence1").forEach(e->System.out.println(e.eleve.getNom()));
 		
-//	 List<Matiere> matiereenseignant=matiereinterface.ListeMatiereEnseignant("fj");
-//	 for(Matiere e:matiereenseignant) {
-//		 System.out.println(e.getLibelle());
+//	 List<PeriodeEvaluation> matiereenseignant=periodeinterface.listePeriodeTrimestre("trimestre1");
+//	 for(PeriodeEvaluation p:matiereenseignant) {
+//		 System.out.println(p.getLibelle());
+//	 }
+//	 StatistiqueImpl s=new StatistiqueImpl();
+//	 for(BilanNote bilan:s.getListBilan("5e")) {
+//		 
+//		 System.out.println("matricule:"+bilan.getMatricule()+"\t  moyenne:"+bilan.getMoyenne());
 //	 }
 	 
 	}

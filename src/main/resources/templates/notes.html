@@ -17,7 +17,9 @@ function fermer(id)
 </script>
 
 <body>
-		
+	<label>classe:</label><span th:text="${classe}"></span>
+	<label>Matiere:</label><span th:text="${matiere}"></span>
+	
 	<div class="container">
 	<form   th:action="@{save}" method="post" th:object="${form}" onsubmit="fermer(this.id);" >
 <table class="table table-hover table-sm" >
